@@ -98,6 +98,111 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : As
         } catch (e) {}
       })();
     </script>
+
+    <!-- Light GSAP scroll-reveal: soft fade-up + stagger as sections enter view.
+         Pre-hidden before paint (no flash); respects prefers-reduced-motion;
+         falls back to fully-visible if GSAP fails to load. -->
+    <script is:inline>
+      (function () {
+        if (!window.matchMedia || !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          document.documentElement.classList.add("gsap-reveal");
+        }
+        // Safety net: if GSAP never loads, reveal everything.
+        setTimeout(function () {
+          if (!window.gsap) document.documentElement.classList.remove("gsap-reveal");
+        }, 2500);
+      })();
+    </script>
+    <style is:inline>
+      html.gsap-reveal
+        :is(
+          .hero__headline, .hero__card, .hero__info-card,
+          .ta__intro, .ta__row,
+          .why-join__heading, .why-join__text, .why-join__item, .why-join__visual,
+          .wi__intro, .wi__card, .wi__detail,
+          .speaker__photo, .speaker__details,
+          .benefits__col,
+          .pricing__head, .pricing__card,
+          .faq__item,
+          .final-cta__details-card, .final-cta__form-card,
+          .footer__col
+        ) {
+        opacity: 0;
+        will-change: opacity, transform;
+      }
+    </style>
+    <script is:inline defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script is:inline defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script is:inline>
+      document.addEventListener("DOMContentLoaded", function () {
+        var html = document.documentElement;
+        var SEL =
+          ".hero__headline, .hero__card, .hero__info-card," +
+          ".ta__intro, .ta__row," +
+          ".why-join__heading, .why-join__text, .why-join__item, .why-join__visual," +
+          ".wi__intro, .wi__card, .wi__detail," +
+          ".speaker__photo, .speaker__details," +
+          ".benefits__col," +
+          ".pricing__head, .pricing__card," +
+          ".faq__item," +
+          ".final-cta__details-card, .final-cta__form-card," +
+          ".footer__col";
+
+        function showAll() {
+          html.classList.remove("gsap-reveal"); // drop the pre-hide → everything visible
+        }
+
+        if (!html.classList.contains("gsap-reveal")) return; // reduced motion: already visible
+        if (!window.gsap || !window.ScrollTrigger) return void showAll();
+
+        var gsap = window.gsap;
+        var ST = window.ScrollTrigger;
+
+        // Probe requestAnimationFrame. If it isn't running (headless / throttled),
+        // tweens can't progress — just reveal everything instantly, never hide.
+        var rafOK = false;
+        requestAnimationFrame(function () { rafOK = true; });
+        setTimeout(function () {
+          if (!rafOK) return void showAll();
+
+          gsap.registerPlugin(ST);
+          gsap.set(SEL, { y: 24 }); // opacity already 0 via the pre-hide CSS
+          var revealVars = {
+            opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
+            stagger: 0.08, overwrite: true, clearProps: "willChange",
+          };
+          function reveal(els) { gsap.to(els, revealVars); }
+
+          ST.batch(SEL, { start: "top 88%", onEnter: reveal });
+
+          // batch onEnter doesn't fire for elements already in view on load.
+          requestAnimationFrame(function () {
+            var vh = window.innerHeight;
+            var inView = gsap.utils.toArray(SEL).filter(function (el) {
+              var r = el.getBoundingClientRect();
+              return r.top < vh * 0.9 && r.bottom > 0;
+            });
+            if (inView.length) reveal(inView);
+          });
+
+          if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(function () { ST.refresh(); });
+          }
+
+          // Safety net: never leave on-screen content hidden.
+          setTimeout(function () {
+            gsap.utils.toArray(SEL).forEach(function (el) {
+              if (
+                parseFloat(getComputedStyle(el).opacity) < 0.05 &&
+                el.getBoundingClientRect().top < window.innerHeight
+              ) {
+                gsap.set(el, { opacity: 1, y: 0 });
+              }
+            });
+          }, 4000);
+        }, 150);
+      });
+    </script>
   </head>
   <body>
     <slot />
