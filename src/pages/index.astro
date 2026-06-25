@@ -18,8 +18,11 @@ import Footer from "../components/Footer.astro";
     <Hero />
     <TargetAudience />
     <WhyJoin />
-    <WhatsIncluded />
-    <Speaker />
+    {/* Shared cityscape backdrop spanning What's-included → Speaker (Figma node 2856:183) */}
+    <div class="section-backdrop">
+      <WhatsIncluded />
+      <Speaker />
+    </div>
     <Benefits />
     <Pricing />
     <Faq />
@@ -27,3 +30,12 @@ import Footer from "../components/Footer.astro";
   </main>
   <Footer />
 </BaseLayout>
+
+<style>
+  .section-backdrop {
+    background-image: url("/assets/images/includes-speaker-bg.jpg");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+  }
+</style>
