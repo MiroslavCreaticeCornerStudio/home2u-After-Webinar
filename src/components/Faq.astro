@@ -144,11 +144,14 @@ const faqs = [
   }
 
   .faq__question {
+    flex: 1 1 auto;
+    min-width: 0;
     font-family: var(--font-heading);
     font-weight: 500;
     font-size: 1.125em; /* 18px */
     line-height: 1.5; /* 27px / 18px */
     color: var(--color-text-white);
+    overflow-wrap: break-word;
   }
 
   .faq__icon {
@@ -190,8 +193,11 @@ const faqs = [
 
   /* Mobile landscape */
   @media (max-width: 767px) {
+    .faq {
+      padding-block: 3.5em; /* 56px section padding (Figma mobile) */
+    }
     .faq__column {
-      gap: 2.5em;
+      gap: 3.75em; /* 60px (Figma mobile) */
     }
     .faq__summary {
       min-height: 2.75em; /* touch target */
@@ -201,10 +207,10 @@ const faqs = [
   /* Mobile portrait */
   @media (max-width: 479px) {
     .faq__title {
-      font-size: 2em;
+      font-size: 1.75em; /* 28px (Figma mobile) */
     }
     .faq__question {
-      font-size: 1em;
+      font-size: 1.125em; /* 18px (Figma mobile) — question wraps to multiple lines */
     }
   }
 </style>

@@ -381,41 +381,119 @@
     }
   }
 
-  /* Mobile landscape — stack cards */
+  /* Mobile landscape — stack cards full-width */
   @media (max-width: 767px) {
+    .pricing__inner {
+      gap: 2.25em; /* 36px */
+    }
     .pricing__cards {
       flex-direction: column;
-      align-items: center;
-      gap: 3em;
+      align-items: stretch;
+      gap: 1.7em; /* 27.17px */
       width: 100%;
     }
     .pricing__card {
       width: 100%;
-      max-width: 26.5em;
+      max-width: none;
     }
     .pricing__tag {
-      width: 14em;
-      top: -1.25em;
-      right: -1em;
+      width: 8.5em;
+      top: -0.65em;
+      right: 0.5em;
     }
   }
 
-  /* Mobile portrait */
+  /* Mobile portrait — match 360px Figma frame */
   @media (max-width: 479px) {
-    .pricing__title {
-      font-size: 2em;
+    .pricing__head {
+      width: 100%;
+      gap: 1.25em; /* 20px */
     }
-    .pricing__price,
-    .pricing__price-new {
-      font-size: 4em;
+    .pricing__title {
+      font-size: 1.75em; /* 28px */
+    }
+
+    .pricing__card {
+      margin-top: 0.95em; /* room for overlapping badge */
+      padding: 2.75em 1.625em 2em; /* 44px 26px 32px */
+      border-radius: 1.13em; /* 18.11px */
+    }
+    .pricing__card-body {
+      gap: 1em; /* 16px */
+    }
+
+    /* Badge */
+    .pricing__badge {
+      top: -0.95em;
+      min-width: 0;
+      width: auto;
+      padding: 0.57em 0.68em; /* 9.06px 10.82px */
+      font-size: 0.75em; /* 12px */
+      border-radius: 1.01em; /* 16.22px */
+    }
+
+    /* Price — set only on the parent; children inherit/scale relative to it */
+    .pricing__price {
+      font-size: 3.5em; /* 56px */
+    }
+    .pricing__price--package {
+      gap: 0.143em; /* 8px relative to 56px */
+    }
+    .pricing__price-old {
+      font-size: 0.4286em; /* 24px relative to 56px */
+    }
+
+    /* Promo form */
+    .pricing__promo {
+      gap: 0.875em; /* 14px */
+    }
+    .pricing__field {
+      gap: 0.75em; /* 12px */
+    }
+    .pricing__label {
+      font-size: 0.75em; /* 12px */
+    }
+    .pricing__input {
+      padding: 0.66em 0.75em; /* 10.57px 12.08px */
+      border-radius: 1.37em; /* 21.89px */
+      font-size: 0.75em; /* 12px placeholder */
+    }
+    .pricing__cta {
+      padding-block: 0.75em; /* 12px */
+      border-radius: 1.56em; /* 24.91px */
+    }
+
+    /* Package bottom block */
+    .pricing__bottom {
+      gap: 0.75em; /* 12px */
+    }
+    .pricing__tickets {
+      gap: 0.375em; /* 6px */
     }
     .pricing__tickets-row {
       flex-wrap: wrap;
-      gap: 0.5em;
+      gap: 0.57em; /* 9.06px */
     }
+    .pricing__timer {
+      padding: 0.38em 0.94em 0.38em 0.75em; /* 6px 15px 6px 12px */
+    }
+    .pricing__timer-icon {
+      width: 0.94em; /* 15.09px */
+      height: 0.94em;
+    }
+    .pricing__timer-count,
+    .pricing__tickets-count {
+      font-size: 0.75em; /* 12px */
+    }
+    .pricing__tickets-note {
+      font-size: 0.625em; /* 10px */
+    }
+
+    /* Early-bird tag — small rotated label over the package card top-right */
     .pricing__tag {
-      width: 12em;
-      right: -0.5em;
+      width: 7.5em;
+      top: -0.5em;
+      right: 0.25em;
     }
   }
 </style>

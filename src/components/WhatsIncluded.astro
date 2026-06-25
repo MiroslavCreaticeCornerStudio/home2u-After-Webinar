@@ -63,35 +63,72 @@ const cards = [
         </p>
       </div>
 
-      {
-        cards.map((c) => (
-          <article class="wi__card">
-            <img
-              class="wi__card-icon"
-              src={`/assets/images/${c.icon}`}
-              alt=""
-              width="56"
-              height="56"
-              loading="lazy"
-            />
-            <div class="wi__card-text">
-              <h3 class="wi__card-title">{c.title}</h3>
-              <p class="wi__card-desc">{c.desc}</p>
-            </div>
-          </article>
-        ))
-      }
+      {/* On desktop `display:contents` makes these cards direct grid children (grid unchanged). On mobile this becomes the horizontal scroll-snap track. */}
+      <div class="wi__track" data-wi-track>
+        {
+          cards.map((c) => (
+            <article class="wi__card">
+              <img
+                class="wi__card-icon"
+                src={`/assets/images/${c.icon}`}
+                alt=""
+                width="56"
+                height="56"
+                loading="lazy"
+              />
+              <div class="wi__card-text">
+                <h3 class="wi__card-title">{c.title}</h3>
+                <p class="wi__card-desc">{c.desc}</p>
+              </div>
+            </article>
+          ))
+        }
 
-      <div class="wi__detail">
-        <div class="wi__detail-head">
-          <hr class="accent-line" />
-          <p class="wi__detail-title">Искаш ли постоянен поток от добри възможности?</p>
+        <div class="wi__detail">
+          <div class="wi__detail-head">
+            <hr class="accent-line" />
+            <p class="wi__detail-title">Искаш ли постоянен поток от добри възможности?</p>
+          </div>
+          <a href="#register" class="btn btn--primary wi__detail-btn">Запиши се сега</a>
         </div>
-        <a href="#register" class="btn btn--primary wi__detail-btn">Запиши се сега</a>
+      </div>
+
+      {/* Mobile-only carousel arrows — hidden on desktop. */}
+      <div class="wi__nav" data-wi-nav>
+        <button type="button" class="wi__arrow" data-wi-prev aria-label="Предишна карта">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <button type="button" class="wi__arrow" data-wi-next aria-label="Следваща карта">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  // Mobile carousel — arrows scroll the track by one card.
+  document.querySelectorAll<HTMLElement>(".whats-included").forEach((section) => {
+    const track = section.querySelector<HTMLElement>("[data-wi-track]");
+    const prev = section.querySelector<HTMLButtonElement>("[data-wi-prev]");
+    const next = section.querySelector<HTMLButtonElement>("[data-wi-next]");
+    if (!track || !prev || !next) return;
+
+    const step = () => {
+      const card = track.querySelector<HTMLElement>(".wi__card, .wi__detail");
+      const gap = parseFloat(getComputedStyle(track).columnGap || "0") || 0;
+      const width = card ? card.getBoundingClientRect().width : track.clientWidth * 0.85;
+      return width + gap;
+    };
+
+    prev.addEventListener("click", () => track.scrollBy({ left: -step(), behavior: "smooth" }));
+    next.addEventListener("click", () => track.scrollBy({ left: step(), behavior: "smooth" }));
+  });
+</script>
 
 <style>
   .whats-included {
@@ -103,6 +140,16 @@ const cards = [
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1.5em; /* 24px */
+  }
+
+  /* Track wrapper is transparent to the grid on desktop — cards act as direct grid children. */
+  .wi__track {
+    display: contents;
+  }
+
+  /* Mobile carousel arrows — hidden on desktop/tablet. */
+  .wi__nav {
+    display: none;
   }
 
   /* Title block — spans the first two columns of row 1, vertically centered. */
@@ -214,29 +261,82 @@ const cards = [
     }
   }
 
-  /* Mobile — single column, compact cards */
+  /* Mobile — intro on top, program cards become a horizontal scroll carousel. */
   @media (max-width: 767px) {
+    /* Grid collapses to a single column so the intro and the track stack vertically. */
     .wi__grid {
       grid-template-columns: 1fr;
+      gap: 2em; /* 32px between intro and carousel */
     }
     .wi__intro {
       grid-column: span 1;
     }
+
+    /* Track becomes the scrollable, snapping carousel. */
+    .wi__track {
+      display: flex;
+      gap: 1em; /* 16px between cards */
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      /* Bleed to the section edges so neighbouring cards peek; pad so the first/last card still snap centred. */
+      margin-inline: calc(-1 * var(--container-padding));
+      padding-inline: var(--container-padding);
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; /* Firefox */
+    }
+    .wi__track::-webkit-scrollbar {
+      display: none; /* Chrome / Safari */
+    }
+
     .wi__card,
     .wi__detail {
+      flex: 0 0 85%;
+      max-width: 85%;
       min-height: 0;
       justify-content: flex-start;
       gap: 1.25em;
+      scroll-snap-align: center;
     }
     .wi__detail {
       align-items: center;
+      justify-content: center;
       padding: 2.5em 1.5em;
+    }
+
+    /* Carousel arrows below the track. */
+    .wi__nav {
+      display: flex;
+      justify-content: center;
+      gap: 1em; /* 16px */
+      margin-top: 2em; /* 32px */
+    }
+    .wi__arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.625em; /* 42px */
+      height: 2.625em;
+      border: 1px solid var(--color-primary);
+      border-radius: 50%;
+      background-color: var(--color-bg-white);
+      color: var(--color-primary);
+      cursor: pointer;
+    }
+    .wi__arrow:hover {
+      background-color: var(--color-primary);
+      color: var(--color-text-white);
     }
   }
 
   @media (max-width: 479px) {
     .wi__title {
       font-size: 2.125em;
+    }
+    /* Slightly wider cards on the narrowest screens so copy stays comfortable. */
+    .wi__card,
+    .wi__detail {
+      flex-basis: 88%;
+      max-width: 88%;
     }
   }
 </style>

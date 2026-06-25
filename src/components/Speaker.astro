@@ -213,20 +213,45 @@ const bio = [
     }
   }
 
-  /* Mobile landscape */
+  /* Mobile — single column, photo on top (Figma mobile 360px frame) */
   @media (max-width: 767px) {
-    .speaker__details {
-      padding: 2em 1.75em 2.25em;
+    .speaker__inner {
+      gap: 1em; /* 16px — Figma Speaker Info Block gap */
     }
-  }
-
-  /* Mobile portrait */
-  @media (max-width: 479px) {
+    /* Photo: full-width cropped frame, Figma 320×307.732 ≈ 1.04 aspect-ratio */
     .speaker__photo {
+      width: 100%;
       max-width: 100%;
+      height: auto;
+      aspect-ratio: 320 / 307.732;
+      border-radius: 1em; /* 16px */
+      margin-inline: 0;
+    }
+    /* Frame the portrait nicely (face centred) on the shorter mobile crop */
+    .speaker__portrait {
+      object-position: center 18%;
+    }
+    .speaker__details {
+      align-items: center;
+      gap: 1em; /* 16px */
+      padding: 1.25em 1.25em 1.5em; /* 20px 20px 24px */
+      border-radius: 1em; /* 16px */
+    }
+    .speaker__header {
+      gap: 0.75em; /* 12px — Figma Info Block gap */
     }
     .speaker__name {
-      font-size: 2em; /* 32px */
+      font-size: 1.75em; /* 28px */
+      line-height: 1.2;
+    }
+    .speaker__role {
+      font-size: 1em; /* 16px */
+    }
+    .speaker__bio {
+      gap: 1em; /* 16px */
+    }
+    .speaker__bio-text {
+      font-size: 0.875em; /* 14px */
     }
   }
 </style>

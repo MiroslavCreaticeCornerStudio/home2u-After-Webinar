@@ -32,7 +32,26 @@ const info = [
       </nav>
 
       <a href="#register" class="btn btn--outline hero__nav-cta">Запиши се сега</a>
+
+      <button
+        type="button"
+        class="hero__burger"
+        aria-label="Меню"
+        aria-expanded="false"
+        aria-controls="hero-mobile-menu"
+      >
+        <span class="hero__burger-bar"></span>
+        <span class="hero__burger-bar"></span>
+        <span class="hero__burger-bar"></span>
+      </button>
     </div>
+
+    <nav id="hero-mobile-menu" class="hero__mobile-menu" aria-label="Мобилна навигация" hidden>
+      <div class="hero__mobile-menu-inner container container--padded">
+        {navLinks.map((l) => <a href={l.href} class="hero__mobile-link">{l.label}</a>)}
+        <a href="#register" class="btn btn--primary hero__mobile-cta">Запиши се сега</a>
+      </div>
+    </nav>
   </header>
 
   <!-- Hero body -->
@@ -86,6 +105,43 @@ const info = [
     fetchpriority="high"
   />
 </section>
+
+<script>
+  // Mobile hamburger menu toggle (≤991px).
+  const burger = document.querySelector<HTMLButtonElement>(".hero__burger");
+  const menu = document.getElementById("hero-mobile-menu");
+
+  if (burger && menu) {
+    const closeMenu = () => {
+      burger.setAttribute("aria-expanded", "false");
+      burger.classList.remove("is-open");
+      menu.hidden = true;
+    };
+    const openMenu = () => {
+      burger.setAttribute("aria-expanded", "true");
+      burger.classList.add("is-open");
+      menu.hidden = false;
+    };
+
+    burger.addEventListener("click", () => {
+      const isOpen = burger.getAttribute("aria-expanded") === "true";
+      isOpen ? closeMenu() : openMenu();
+    });
+
+    // Close after tapping a link.
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    // Close on Escape.
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && burger.getAttribute("aria-expanded") === "true") {
+        closeMenu();
+        burger.focus();
+      }
+    });
+  }
+</script>
 
 <style>
   .hero {
@@ -171,6 +227,66 @@ const info = [
   .hero__nav-cta {
     flex-shrink: 0;
     font-size: 1em;
+  }
+
+  /* Hamburger button — hidden on desktop, shown ≤991px. */
+  .hero__burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.3125em; /* 5px */
+    width: 2.875em; /* 46px — rounded square */
+    height: 2.875em;
+    padding: 0;
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    background-color: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .hero__burger-bar {
+    display: block;
+    width: 1.375em; /* 22px */
+    height: 2px;
+    margin-inline: auto;
+    background-color: var(--color-primary);
+    border-radius: 2px;
+    transition: transform var(--transition-base), opacity var(--transition-base);
+  }
+  .hero__burger.is-open .hero__burger-bar:nth-child(1) {
+    transform: translateY(0.4375em) rotate(45deg);
+  }
+  .hero__burger.is-open .hero__burger-bar:nth-child(2) {
+    opacity: 0;
+  }
+  .hero__burger.is-open .hero__burger-bar:nth-child(3) {
+    transform: translateY(-0.4375em) rotate(-45deg);
+  }
+
+  /* Mobile dropdown menu — only rendered ≤991px (hidden attribute on desktop). */
+  .hero__mobile-menu {
+    display: none;
+  }
+  .hero__mobile-menu-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em; /* 20px */
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+  }
+  .hero__mobile-link {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 1.125em; /* 18px */
+    line-height: 1.4;
+    color: var(--color-text-primary);
+  }
+  .hero__mobile-link:hover {
+    color: var(--color-primary);
+  }
+  .hero__mobile-cta {
+    margin-top: 0.5em;
+    width: 100%;
   }
 
   /* Hero body */
@@ -313,10 +429,25 @@ const info = [
     .hero__nav-links {
       display: none;
     }
-    /* Stacked hero has no room for the centered cutout. */
-    .hero__speaker {
+    /* Desktop nav CTA hidden; hamburger takes over. */
+    .hero__nav-cta {
       display: none;
     }
+    .hero__burger {
+      display: flex;
+    }
+    /* The mobile menu becomes a normal block when open. Visibility is gated by
+       the `hidden` attribute toggled in the script; `:not([hidden])` keeps the
+       class rule from overriding the attribute's display:none. */
+    .hero__mobile-menu:not([hidden]) {
+      display: block;
+    }
+    .hero__nav-inner {
+      height: auto;
+      padding-top: 1em;
+      padding-bottom: 1em;
+    }
+
     .hero__body {
       flex-direction: column;
       gap: 2.5em;
@@ -335,13 +466,89 @@ const info = [
     }
   }
 
-  /* Mobile landscape */
+  /* Mobile landscape — full mobile redesign per Figma 360px frame */
   @media (max-width: 767px) {
+    /* Reorder children: nav → body (headline+desc+CTA) → speaker → info.
+       The section becomes a flex column so the absolutely-positioned speaker
+       can be pulled into normal flow between the body and the info bar. */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 0;
+    }
+    .hero__nav {
+      order: 1;
+    }
+    .hero__body {
+      order: 2;
+      padding-top: 2em;
+      gap: 1.5em; /* 24px between headline and text block */
+    }
+    .hero__speaker {
+      order: 3;
+    }
     .hero__info {
-      flex-wrap: wrap;
+      order: 4;
+    }
+
+    /* Description reads as a normal paragraph — strip the glass card chrome. */
+    .hero__card {
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background-image: none;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      gap: 1.5em; /* 24px between description and CTA */
+    }
+    .hero__card-content {
+      gap: 0.75em;
+    }
+    .hero__card-content .accent-line {
+      display: none;
+    }
+    .hero__card-desc {
+      font-size: 0.875em; /* 14px */
+      color: var(--color-text-secondary);
+    }
+
+    /* Full-width gradient CTA. */
+    .hero__card-cta {
+      align-self: stretch;
+      width: 100%;
+      padding-inline: 1.5em;
+    }
+
+    /* Speaker cutout — pulled into normal flow, full-width, centered, large. */
+    .hero__speaker {
+      display: block;
+      position: static;
+      transform: none;
+      left: auto;
+      bottom: auto;
+      width: 100%;
+      max-width: 26em;
+      height: auto;
+      margin: 1.5em auto -1em;
+    }
+
+    /* Info rows — full-width single column. */
+    .hero__info {
+      flex-direction: column;
+      flex-wrap: nowrap;
+      gap: 0.5em; /* 8px */
+      margin-top: 1.5em;
+      padding-bottom: 3.5em; /* breathing room at section bottom */
     }
     .hero__info-card {
-      flex: 1 1 45%;
+      flex: 1 1 auto;
+      width: 100%;
+      gap: 0.5em; /* 8px */
+      padding: 0.5em; /* 8px */
+    }
+    .hero__info-icon {
+      width: 1.75em; /* 28px */
+      height: 1.75em;
     }
   }
 
@@ -354,11 +561,7 @@ const info = [
       font-size: 3.75em;
     }
     .hero__info-card {
-      flex: 1 1 100%;
-    }
-    .hero__nav-cta {
-      padding: 0.75em 1em;
-      font-size: 0.875em;
+      flex: 1 1 auto;
     }
   }
 </style>
