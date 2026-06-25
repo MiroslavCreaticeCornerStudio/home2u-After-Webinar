@@ -1,12 +1,12 @@
-// Skyguru CRM lead ingestion (Home2U).
+// Skyguru CRM lead ingestion (Home2U) — the only lead destination.
 // Public endpoint (no auth) — only `phone` is required; all other fields are
-// accepted and optional. Best-effort: a failure here must NEVER block the Brevo
-// lead capture or the user's success response. Never throws.
+// accepted and optional. Returns true on success (HTTP 2xx), false otherwise;
+// never throws. The /api/register endpoint gates the user response on this.
 import { getSecret } from "astro:env/server";
 
 const DEFAULT_SKYGURU_LEADS_URL = "https://skyguru.ai/api/v1/public/leads";
 
-// Identifies this specific landing page / campaign inside the shared CRM + Brevo.
+// Identifies this specific landing page / campaign inside the CRM.
 export const FORM_NAME = "Как да правим сделки за милиони";
 
 export interface SkyguruLead {
