@@ -2,6 +2,9 @@
 // Pricing section — eyebrow + title, two pricing cards (Individual €500 /
 // Package €600 with early-bird tag), decorative grid-pattern shapes.
 // Figma node 2856:469. Light background (no dark fill in the design).
+
+// Promo-code input is hidden for now — set to `true` to show it again.
+const SHOW_PROMO = false;
 ---
 
 <section class="pricing" id="pricing">
@@ -42,16 +45,20 @@
 
           <form class="pricing__promo">
             <!-- TODO: wire up submission -->
-            <div class="pricing__field">
-              <label class="pricing__label" for="pricing-promo">Промокод</label>
-              <input
-                type="text"
-                id="pricing-promo"
-                name="promo"
-                class="pricing__input"
-                placeholder="Въведи промокод"
-              />
-            </div>
+            {
+              SHOW_PROMO && (
+                <div class="pricing__field">
+                  <label class="pricing__label" for="pricing-promo">Промокод</label>
+                  <input
+                    type="text"
+                    id="pricing-promo"
+                    name="promo"
+                    class="pricing__input"
+                    placeholder="Въведи промокод"
+                  />
+                </div>
+              )
+            }
             <button type="submit" class="btn btn--primary pricing__cta">Купи</button>
           </form>
         </div>
