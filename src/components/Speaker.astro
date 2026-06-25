@@ -215,6 +215,10 @@ const bio = [
 
   /* Mobile — single column, photo on top (Figma mobile 360px frame) */
   @media (max-width: 767px) {
+    /* No top padding on mobile (keep the bottom). */
+    .speaker {
+      padding-top: 0;
+    }
     .speaker__inner {
       gap: 1em; /* 16px — Figma Speaker Info Block gap */
     }
