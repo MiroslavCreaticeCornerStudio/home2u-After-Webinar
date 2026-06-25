@@ -11,7 +11,7 @@ const {
   title = "Home2U — Уебинар: Сделки за милиони от брокерство",
   description = "Онлайн уебинар с Ралица: научи как да правиш сделки за милиони от брокерство. Практически насоки, реални примери и стратегии за успех в имотния бизнес.",
   // TODO: replace with a purpose-built 1200×630 OG image; using an existing photo for now.
-  ogImage = "/assets/images/finalcta-background.jpg",
+  ogImage = "/course/assets/images/finalcta-background.jpg",
 } = Astro.props;
 
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.pathname;
@@ -22,7 +22,7 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : As
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/course/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
     <title>{title}</title>
@@ -46,14 +46,14 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : As
     <!-- Fonts — self-hosted brand font (Sharp Grotesk Cyr); @font-face in global.css. -->
     <link
       rel="preload"
-      href="/assets/fonts/sharp-grotesk-cyr-medium.woff2"
+      href="/course/assets/fonts/sharp-grotesk-cyr-medium.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="/assets/fonts/sharp-grotesk-cyr-book.woff2"
+      href="/course/assets/fonts/sharp-grotesk-cyr-book.woff2"
       as="font"
       type="font/woff2"
       crossorigin

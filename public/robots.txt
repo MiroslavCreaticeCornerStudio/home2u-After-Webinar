@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.home2u.bg/sitemap-index.xml
+Sitemap: https://webinar.home2u.bg/course/sitemap-index.xml

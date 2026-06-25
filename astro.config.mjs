@@ -10,8 +10,11 @@ import vercel from '@astrojs/vercel';
 // adapter below enables that. Server secrets are read at runtime via getSecret()
 // from `astro:env/server` — no secrets baked into the build.
 export default defineConfig({
-  // TODO: replace with the real production domain before deploy.
-  site: 'https://www.home2u.bg',
+  // Served under webinar.home2u.bg/course (path-based zone behind the
+  // webinar-ralica project, which rewrites /course/* to this deployment).
+  site: 'https://webinar.home2u.bg',
+  base: '/course',
+  trailingSlash: 'ignore',
   adapter: vercel(),
   integrations: [sitemap()],
   // Honor a PORT env var (used by the preview tool); fall back to Astro's default.

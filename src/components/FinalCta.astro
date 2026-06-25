@@ -13,7 +13,7 @@ const details = [
   <!-- Background photo (full-width) + gradient overlay -->
   <img
     class="final-cta__bg"
-    src="/assets/images/finalcta-background.jpg"
+    src="/course/assets/images/finalcta-background.jpg"
     alt=""
     aria-hidden="true"
     width="1920"
@@ -38,7 +38,7 @@ const details = [
           details.map((item) => (
             <div class="final-cta__detail-row">
               <img
-                src={`/assets/images/${item.icon}`}
+                src={`/course/assets/images/${item.icon}`}
                 alt=""
                 width="36"
                 height="36"
@@ -62,7 +62,7 @@ const details = [
 
     <!-- Right: registration form → Brevo + Skyguru CRM (see src/pages/api/register.ts) -->
     <div class="final-cta__form-card">
-      <form class="final-cta__form" action="/api/register" method="post" novalidate>
+      <form class="final-cta__form" action="/course/api/register" method="post" novalidate>
         <div class="final-cta__fields">
           <div class="final-cta__field">
             <label class="final-cta__label" for="final-cta-name">Име*</label>
@@ -677,7 +677,7 @@ const details = [
       setStatus("Изпращане…", "");
 
       try {
-        const res = await fetch("/api/register", {
+        const res = await fetch("/course/api/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
@@ -687,7 +687,7 @@ const details = [
           form.reset();
           fields.forEach((n) => showError(n, false));
           setStatus("Пренасочване…", "ok");
-          window.location.assign("/thank-you");
+          window.location.assign("/course/thank-you");
           return;
         }
         setStatus(result.error || "Възникна грешка при изпращането. Моля, опитай отново.", "error");

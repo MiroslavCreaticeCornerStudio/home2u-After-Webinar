@@ -23,8 +23,8 @@ const info = [
   <header class="hero__nav">
     <div class="hero__nav-inner container container--padded">
       <a class="hero__logo" href="#" aria-label="Home2U">
-        <img src="/assets/images/logo-home2u-icon.svg" alt="" width="35" height="35" class="hero__logo-icon" />
-        <img src="/assets/images/logo-home2u-text.svg" alt="Home2U" width="145" height="35" class="hero__logo-text" />
+        <img src="/course/assets/images/logo-home2u-icon.svg" alt="" width="35" height="35" class="hero__logo-icon" />
+        <img src="/course/assets/images/logo-home2u-text.svg" alt="Home2U" width="145" height="35" class="hero__logo-text" />
       </a>
 
       <nav class="hero__nav-links" aria-label="Основна навигация">
@@ -85,7 +85,7 @@ const info = [
     {
       info.map((item) => (
         <div class="hero__info-card">
-          <img src={`/assets/images/${item.icon}`} alt="" width="28" height="28" class="hero__info-icon" />
+          <img src={`/course/assets/images/${item.icon}`} alt="" width="28" height="28" class="hero__info-icon" />
           <div class="hero__info-text">
             <span class="hero__info-label">{item.label}</span>
             <span class="hero__info-value">{item.value}</span>
@@ -98,7 +98,7 @@ const info = [
   <!-- Speaker cutout, centered between the headline and the card -->
   <img
     class="hero__speaker"
-    src="/assets/images/hero-speaker.webp"
+    src="/course/assets/images/hero-speaker.webp"
     alt="Ралица Ценова"
     width="900"
     height="1301"
@@ -158,7 +158,7 @@ const info = [
         rgba(255, 255, 255, 0.2) 55%,
         rgba(255, 255, 255, 0) 80%
       ),
-      url("/assets/images/hero-bg.jpg");
+      url("/course/assets/images/hero-bg.jpg");
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
