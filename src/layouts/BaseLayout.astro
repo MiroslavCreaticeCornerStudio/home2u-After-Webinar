@@ -52,6 +52,45 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : As
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap&subset=cyrillic,cyrillic-ext,latin"
     />
     <slot name="head" />
+
+    <!-- Ad attribution capture (Facebook fbclid + UTMs) for offline conversion
+         tracking. Persists last-touch attribution in localStorage so it survives
+         navigation and is attached to the lead on form submit. -->
+    <script is:inline>
+      (function () {
+        try {
+          var KEY = "h2u_attribution";
+          var TRACKED = ["fbclid", "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+          var params = new URLSearchParams(location.search);
+          var hasNew = TRACKED.some(function (p) { return params.get(p); });
+
+          function readCookie(name) {
+            var m = document.cookie.match("(?:^|; )" + name.replace(/([.*+?^${}()|[\]\\])/g, "\\$1") + "=([^;]*)");
+            return m ? decodeURIComponent(m[1]) : "";
+          }
+
+          var data = {};
+          try { data = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) {}
+
+          if (hasNew) {
+            // New ad click → refresh attribution (last-touch wins)
+            var fresh = {};
+            TRACKED.forEach(function (p) { var v = params.get(p); if (v) fresh[p] = v; });
+            fresh.landing_page = location.origin + location.pathname;
+            fresh.referrer = document.referrer || "";
+            fresh.captured_at = new Date().toISOString();
+            if (fresh.fbclid) fresh.fbc = "fb.1." + Date.now() + "." + fresh.fbclid; // Meta CAPI format
+            data = fresh;
+          }
+
+          // Prefer Meta Pixel cookies when present (better match quality)
+          var fbp = readCookie("_fbp"); if (fbp) data.fbp = fbp;
+          var fbc = readCookie("_fbc"); if (fbc) data.fbc = fbc;
+
+          if (hasNew || fbp || fbc) localStorage.setItem(KEY, JSON.stringify(data));
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <slot />

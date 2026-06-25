@@ -1,0 +1,94 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Благодарим ти! — Home2U"
+  description="Записването ти за обучението „Как да правим сделки за милиони“ е прието."
+>
+  <meta slot="head" name="robots" content="noindex, nofollow" />
+
+  <main class="ty">
+    <section class="ty__inner container container--padded">
+      <a class="ty__logo" href="/" aria-label="Home2U">
+        <img src="/assets/images/logo-home2u-icon.svg" alt="" width="44" height="44" />
+        <img src="/assets/images/logo-home2u-text.svg" alt="Home2U" width="180" height="44" />
+      </a>
+
+      <hr class="accent-line" />
+      <h1 class="ty__title">Благодарим ти!</h1>
+      <p class="ty__lead">
+        Записването ти за обучението <strong>„Как да правим сделки за милиони“</strong> е прието успешно.
+        Скоро ще се свържем с теб с подробностите.
+      </p>
+
+      <a class="btn btn--primary ty__home" href="/">Обратно към началото</a>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .ty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-image:
+      linear-gradient(179.2deg, rgba(255, 255, 255, 0.7) 36.78%, rgba(205, 217, 228, 0) 146.75%),
+      linear-gradient(122.73deg, rgba(165, 196, 214, 0.7) 12.11%, rgba(249, 221, 222, 0.7) 80.81%);
+  }
+
+  .ty__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5em;
+    max-width: 40em;
+    padding-block: 5em;
+    text-align: center;
+  }
+
+  .ty__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65em;
+    margin-bottom: 1em;
+  }
+  .ty__logo img {
+    height: 2.75em;
+    width: auto;
+  }
+
+  .ty__title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 3.5em; /* 56px */
+    line-height: 1.1;
+    color: var(--color-primary);
+  }
+
+  .ty__lead {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1.25em; /* 20px */
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+  }
+  .ty__lead strong {
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+
+  .ty__home {
+    margin-top: 1em;
+  }
+
+  @media (max-width: 767px) {
+    .ty__title {
+      font-size: 2.5em; /* 40px */
+    }
+    .ty__lead {
+      font-size: 1.125em;
+    }
+  }
+</style>
