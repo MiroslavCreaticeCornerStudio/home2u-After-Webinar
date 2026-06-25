@@ -1,0 +1,191 @@
+---
+// Target audience section — eyebrow + title (left) and a vertical list of 6
+// qualifier rows (right), with a decorative blurred shape behind the content.
+// Figma node 2856:251.
+const items = [
+  {
+    icon: "icon-chart-line-up.svg",
+    text: "Обмисляш кариера в недвижимите имоти и искаш да започнеш със стабилна основа.",
+  },
+  {
+    icon: "icon-user-check.svg",
+    text: "Искаш да се учиш от професионалист с доказани резултати на пазара.",
+  },
+  {
+    icon: "icon-trend-up.svg",
+    text: "Работиш като брокер и искаш да разбереш как да стигнеш до следващото ниво.",
+  },
+  {
+    icon: "icon-user-circle.svg",
+    text: "Занимаваш се с имоти от известно време, но усещаш, че таванът ти е по-нисък от потенциала ти.",
+  },
+  {
+    icon: "icon-list-checks.svg",
+    text: "Искаш резултатите ти да идват от ясен процес, а не от случайни запитвания и добри моменти.",
+  },
+  {
+    icon: "icon-users-three.svg",
+    text: "Търсиш практически знания от реалния пазар, а не общи приказки за успех.",
+  },
+];
+---
+
+<section class="target-audience" id="target-audience">
+  <img
+    class="target-audience__blur"
+    src="/assets/images/targetaudience-bg-blur.svg"
+    alt=""
+    width="892"
+    height="614"
+    loading="lazy"
+    aria-hidden="true"
+  />
+
+  <div class="target-audience__inner container container--padded">
+    <div class="ta__intro">
+      <hr class="accent-line" />
+      <h2 class="ta__title">Този курс е подходящ за теб, ако:</h2>
+    </div>
+
+    <ul class="ta__list">
+      {
+        items.map((item) => (
+          <li class="ta__row">
+            <span class="ta__icon-block">
+              <img
+                src={`/assets/images/${item.icon}`}
+                alt=""
+                width="32"
+                height="32"
+                class="ta__icon"
+                loading="lazy"
+              />
+            </span>
+            <p class="ta__text">{item.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .target-audience {
+    position: relative;
+    width: 100%;
+    padding-block: 5em; /* 80px */
+    overflow: hidden;
+  }
+
+  /* Decorative blurred shape behind the content */
+  .target-audience__blur {
+    position: absolute;
+    top: -0.125em; /* -2px */
+    left: -13.375em; /* -214px */
+    width: 55.75em; /* 892px */
+    height: auto;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .target-audience__inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 3em;
+  }
+
+  /* Left — eyebrow + title */
+  .ta__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em; /* 20px */
+    width: 34.0625em; /* 545px */
+    flex-shrink: 0;
+  }
+  .ta__title {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 2.625em; /* 42px */
+    line-height: 1.3;
+    color: var(--color-text-primary);
+    overflow-wrap: break-word;
+  }
+
+  /* Right — list of qualifier rows */
+  .ta__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em; /* 24px */
+    width: 40.8125em; /* 653px */
+    flex-shrink: 0;
+  }
+  .ta__row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1em; /* 16px */
+    width: 100%;
+    padding: 1.5em 2em; /* 24px 32px */
+    border: 1px solid var(--color-bg-white);
+    border-radius: 0.792625em; /* 12.682px */
+    /* Figma gradient (non-token): light blue → light pink, both at 0.7 alpha */
+    background-image: linear-gradient(
+      -17.35deg,
+      rgba(231, 241, 248, 0.7) 0%,
+      rgba(248, 234, 237, 0.7) 100%
+    );
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+  .ta__icon-block {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625em; /* 10px */
+    background-color: var(--color-bg-white);
+    border-radius: 0.5553125em; /* 8.885px */
+    flex-shrink: 0;
+  }
+  .ta__icon {
+    width: 2em; /* 32px */
+    height: 2em;
+  }
+  .ta__text {
+    flex: 1 1 0;
+    min-width: 0;
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 1.125em; /* 18px */
+    line-height: 1.5; /* 27px / 18px */
+    color: var(--color-text-secondary);
+    overflow-wrap: break-word;
+  }
+
+  /* Tablet */
+  @media (max-width: 991px) {
+    .target-audience__inner {
+      flex-direction: column;
+      gap: 2.5em;
+    }
+    .ta__intro,
+    .ta__list {
+      width: 100%;
+    }
+  }
+
+  /* Mobile landscape */
+  @media (max-width: 767px) {
+    .ta__row {
+      padding: 1.25em 1.25em;
+    }
+  }
+
+  /* Mobile portrait */
+  @media (max-width: 479px) {
+    .ta__title {
+      font-size: 2.125em;
+    }
+  }
+</style>

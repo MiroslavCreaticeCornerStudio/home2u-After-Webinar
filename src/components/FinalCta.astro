@@ -1,0 +1,477 @@
+---
+// Final CTA Section — photo background + light pastel gradient overlay,
+// event details glass card (left) + registration form (right).
+// Figma node 2856:555.
+const details = [
+  { icon: "icon-finalcta-date.svg", label: "Дати:", value: "Понеделник – Петък" },
+  { icon: "icon-finalcta-time.svg", label: "Час:", value: "18:00 – 19:30 ч." },
+  { icon: "icon-finalcta-location.svg", label: "Място:", value: "Hilton Sofia" },
+];
+---
+
+<section class="final-cta" id="register">
+  <!-- Background photo (full-width) + gradient overlay -->
+  <img
+    class="final-cta__bg"
+    src="/assets/images/finalcta-background.jpg"
+    alt=""
+    aria-hidden="true"
+    width="1920"
+    height="1083"
+    loading="lazy"
+    decoding="async"
+  />
+  <span class="final-cta__overlay" aria-hidden="true"></span>
+
+  <div class="final-cta__inner container container--padded">
+    <!-- Left: event details card -->
+    <div class="final-cta__details-card">
+      <div class="final-cta__header">
+        <h2 class="final-cta__title">
+          Направи първата крачка към сделките за милиони
+        </h2>
+        <hr class="accent-line final-cta__accent" />
+      </div>
+
+      <div class="final-cta__details">
+        {
+          details.map((item) => (
+            <div class="final-cta__detail-row">
+              <img
+                src={`/assets/images/${item.icon}`}
+                alt=""
+                width="36"
+                height="36"
+                class="final-cta__detail-icon"
+                loading="lazy"
+              />
+              <div class="final-cta__detail-text">
+                <span class="final-cta__detail-label">{item.label}</span>
+                <span class="final-cta__detail-value">{item.value}</span>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="final-cta__tickets">
+        <span class="final-cta__tickets-tag">Оставащи места</span>
+        <span class="final-cta__tickets-number">10</span>
+      </div>
+    </div>
+
+    <!-- Right: registration form -->
+    <div class="final-cta__form-card">
+      <!-- TODO: wire up form submission (no backend in scope) -->
+      <form class="final-cta__form" action="#" method="post">
+        <div class="final-cta__fields">
+          <div class="final-cta__field">
+            <label class="final-cta__label" for="final-cta-name">Име*</label>
+            <input
+              class="final-cta__input"
+              id="final-cta-name"
+              name="name"
+              type="text"
+              placeholder="Име"
+              required
+            />
+          </div>
+
+          <div class="final-cta__field">
+            <label class="final-cta__label" for="final-cta-phone">Телефон*</label>
+            <input
+              class="final-cta__input"
+              id="final-cta-phone"
+              name="phone"
+              type="tel"
+              placeholder="Телефон"
+              required
+            />
+          </div>
+
+          <div class="final-cta__field">
+            <label class="final-cta__label" for="final-cta-email">Имейл*</label>
+            <input
+              class="final-cta__input"
+              id="final-cta-email"
+              name="email"
+              type="email"
+              placeholder="Имейл"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="final-cta__consent-section">
+          <div class="final-cta__consent">
+            <input
+              class="final-cta__checkbox"
+              id="final-cta-consent"
+              name="consent"
+              type="checkbox"
+              required
+            />
+            <label class="final-cta__consent-label" for="final-cta-consent">
+              Давам съгласието си съобразно новите правила за <span
+                class="final-cta__consent-link">защита на личните данни</span>
+            </label>
+          </div>
+
+          <button type="submit" class="final-cta__submit">Запиши се сега</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .final-cta {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding-block: 7em 6.94em; /* 112px top / 111px bottom */
+  }
+
+  /* Background photo — full-width, behind everything */
+  .final-cta__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+  .final-cta__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: linear-gradient(
+      119.31deg,
+      rgba(165, 196, 214, 0.85) 12.11%,
+      rgba(249, 221, 222, 0.85) 80.81%
+    );
+  }
+
+  .final-cta__inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: stretch;
+    gap: 2em; /* 32px */
+  }
+
+  /* ---- Left: event details card ---- */
+  .final-cta__details-card {
+    position: relative;
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1em; /* 16px */
+    padding: 5em 2.625em 2.625em; /* 80px 42px 42px */
+    border: 2px solid var(--color-bg-white);
+    border-radius: 1.875em; /* 30px */
+    background-image: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.07) 1.76%,
+      rgba(255, 255, 255, 0.04) 98.47%
+    );
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+  }
+
+  .final-cta__header {
+    display: flex;
+    flex-direction: column;
+    gap: 2em; /* 32px */
+  }
+  .final-cta__title {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 2.625em; /* 42px */
+    line-height: 1.3;
+    color: var(--color-text-primary);
+  }
+  .final-cta__accent {
+    margin: 0;
+  }
+
+  .final-cta__details {
+    display: flex;
+    flex-direction: column;
+    gap: 1em; /* 16px */
+    padding: 1em 1.25em; /* 16px 20px */
+    border-radius: 0.75em; /* 12px */
+  }
+  .final-cta__detail-row {
+    display: flex;
+    align-items: center;
+    gap: 1.108em; /* 17.727px */
+  }
+  .final-cta__detail-icon {
+    width: 2.25em; /* 36px */
+    height: 2.25em;
+    flex-shrink: 0;
+  }
+  .final-cta__detail-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5;
+  }
+  .final-cta__detail-label {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1.125em; /* 18px */
+    color: var(--color-text-secondary);
+  }
+  .final-cta__detail-value {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 1.25em; /* 20px */
+    color: var(--color-text-primary);
+    white-space: nowrap;
+  }
+
+  /* Remaining tickets badge — absolutely positioned over top-right of card */
+  .final-cta__tickets {
+    position: absolute;
+    top: -3.125em; /* -50px */
+    left: 26.625em; /* 426px */
+    width: 9.0625em; /* 145px */
+    height: 7.625em; /* 122px */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .final-cta__tickets-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1.5em 2.311em; /* 24px 36.975px */
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 4.625em; /* 74px */
+    line-height: 1;
+    color: var(--color-text-primary);
+    white-space: nowrap;
+    border: 1px solid var(--color-primary);
+    border-radius: 1.733em; /* 27.731px */
+    background-image: linear-gradient(
+      -90deg,
+      rgb(165, 196, 214) 16.83%,
+      rgb(252, 235, 236) 40.81%
+    );
+    box-shadow: 0px 0px 9.244px 3.697px rgba(169, 8, 49, 0.2);
+  }
+  .final-cta__tickets-tag {
+    position: absolute;
+    top: -1.6875em; /* -27px */
+    left: 1.1875em; /* 19px */
+    width: 6.6875em; /* 107px */
+    height: 2.75em; /* 44px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3465em 0.693em; /* 5.546px 11.092px */
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.875em; /* 14px */
+    line-height: 1;
+    text-align: center;
+    color: var(--color-text-white);
+    background-color: var(--color-primary);
+    border-radius: 1.04em; /* 16.639px */
+    box-shadow:
+      0px 0px 9.244px 0px rgba(169, 8, 49, 0.2),
+      0px 3.697px 7.58px 0px rgba(0, 0, 0, 0.15);
+  }
+
+  /* ---- Right: registration form card ---- */
+  .final-cta__form-card {
+    flex-shrink: 0;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 39.375em; /* 630px */
+    padding: 3.5em 3.75em; /* 56px 60px */
+    border: 1px solid var(--color-bg-white);
+    border-radius: 1.875em; /* 30px */
+    background-image: linear-gradient(
+      -90deg,
+      rgba(255, 255, 255, 0.42) 1.76%,
+      rgba(255, 255, 255, 0.7) 98.47%
+    );
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+  }
+  .final-cta__form {
+    display: flex;
+    flex-direction: column;
+    gap: 3em; /* 48px */
+    width: 100%;
+  }
+  .final-cta__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em; /* 20px */
+    width: 100%;
+  }
+  .final-cta__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em; /* 12px */
+    width: 100%;
+  }
+  .final-cta__label {
+    padding-left: 1em; /* 16px */
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 0.875em; /* 14px */
+    line-height: 1;
+    color: var(--color-primary);
+  }
+  .final-cta__input {
+    width: 100%;
+    padding: 0.875em 1em; /* 14px 16px */
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1em; /* 16px */
+    line-height: 1.5;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-white);
+    border: none;
+    border-radius: 1.5em; /* 24px */
+  }
+  .final-cta__input::placeholder {
+    color: var(--color-text-inactive);
+    opacity: 1;
+  }
+
+  .final-cta__consent-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2em; /* 32px */
+    width: 100%;
+  }
+  .final-cta__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75em; /* 12px */
+  }
+  .final-cta__checkbox {
+    flex-shrink: 0;
+    width: 1em; /* 16px */
+    height: 1em;
+    margin-top: 0.25em; /* 4px top padding from design */
+    accent-color: var(--color-primary);
+    background-color: var(--color-bg-white);
+    border: 1px solid var(--color-primary);
+    border-radius: 3px;
+    box-shadow: 0px 3px 13.5px 0px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+  }
+  .final-cta__consent-label {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.875em; /* 14px */
+    line-height: 1.5;
+    color: #484848;
+    cursor: pointer;
+  }
+  .final-cta__consent-link {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+
+  .final-cta__submit {
+    width: 100%;
+    padding: 1.25em 2.25em; /* 20px 36px */
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 1em; /* 16px */
+    line-height: 1;
+    text-align: center;
+    color: var(--color-text-white);
+    background-image: linear-gradient(to left, #880425, #a90931);
+    border: none;
+    border-radius: 2.0625em; /* 33px */
+    box-shadow: 0px 5px 15px rgba(169, 8, 49, 0.4);
+    cursor: pointer;
+    transition: opacity var(--transition-base);
+  }
+  .final-cta__submit:hover {
+    opacity: 0.9;
+  }
+
+  /* ---- Tablet ---- */
+  @media (max-width: 991px) {
+    .final-cta {
+      padding-block: 4em;
+    }
+    .final-cta__inner {
+      flex-direction: column;
+      gap: 4em; /* room for the badge that overhangs the top */
+    }
+    .final-cta__details-card {
+      width: 100%;
+    }
+    .final-cta__form-card {
+      width: 100%;
+      align-self: auto;
+    }
+    /* Pull the ticket badge inside on stacked layout */
+    .final-cta__tickets {
+      left: auto;
+      right: 1.5em;
+      top: -3.125em;
+    }
+  }
+
+  /* ---- Mobile landscape ---- */
+  @media (max-width: 767px) {
+    .final-cta__details-card {
+      padding: 4em 1.5em 2em;
+    }
+    .final-cta__form-card {
+      padding: 2.5em 1.5em;
+    }
+    .final-cta__title {
+      font-size: 2em; /* 32px */
+    }
+    .final-cta__tickets {
+      right: 1em;
+      top: -2.5em;
+    }
+    .final-cta__detail-value {
+      white-space: normal;
+    }
+  }
+
+  /* ---- Mobile portrait ---- */
+  @media (max-width: 479px) {
+    .final-cta__inner {
+      gap: 3.5em;
+    }
+    .final-cta__title {
+      font-size: 1.75em; /* 28px */
+    }
+    .final-cta__tickets {
+      width: 7.5em;
+      height: 6.5em;
+    }
+    .final-cta__tickets-number {
+      font-size: 3.5em;
+      padding: 1em 1.25em;
+    }
+    .final-cta__submit {
+      min-height: 2.75em;
+    }
+    .final-cta__input {
+      min-height: 2.75em;
+    }
+  }
+</style>

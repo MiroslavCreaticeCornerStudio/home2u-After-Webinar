@@ -1,0 +1,443 @@
+---
+// Pricing section — eyebrow + title, two pricing cards (Individual €500 /
+// Package €600 with early-bird tag), decorative grid-pattern shapes.
+// Figma node 2856:469. Light background (no dark fill in the design).
+---
+
+<section class="pricing" id="pricing">
+  <!-- Decorative grid-pattern shapes (behind content) -->
+  <img
+    src="/assets/images/pricing-shape-left.svg"
+    alt=""
+    role="presentation"
+    width="707"
+    height="398"
+    loading="lazy"
+    class="pricing__shape pricing__shape--left"
+  />
+  <img
+    src="/assets/images/pricing-shape-right.svg"
+    alt=""
+    role="presentation"
+    width="673"
+    height="463"
+    loading="lazy"
+    class="pricing__shape pricing__shape--right"
+  />
+
+  <div class="pricing__inner container container--padded">
+    <!-- Eyebrow + title -->
+    <div class="pricing__head">
+      <hr class="accent-line" />
+      <h2 class="pricing__title">Запази своето място в обучението</h2>
+    </div>
+
+    <!-- Pricing cards -->
+    <div class="pricing__cards">
+      <!-- Card 1 — Individual -->
+      <article class="pricing__card">
+        <span class="pricing__badge">Индивидуален</span>
+        <div class="pricing__card-body">
+          <p class="pricing__price">€500</p>
+
+          <form class="pricing__promo">
+            <!-- TODO: wire up submission -->
+            <div class="pricing__field">
+              <label class="pricing__label" for="pricing-promo">Промокод</label>
+              <input
+                type="text"
+                id="pricing-promo"
+                name="promo"
+                class="pricing__input"
+                placeholder="Въведи промокод"
+              />
+            </div>
+            <button type="submit" class="btn btn--primary pricing__cta">Купи</button>
+          </form>
+        </div>
+      </article>
+
+      <!-- Card 2 — Package -->
+      <article class="pricing__card pricing__card--package">
+        <span class="pricing__badge">Пакет за двама</span>
+
+        <!-- Early-bird tag -->
+        <div class="pricing__tag" aria-hidden="true">
+          <img
+            src="/assets/images/pricing-arrow-curve.svg"
+            alt=""
+            width="68"
+            height="234"
+            loading="lazy"
+            class="pricing__tag-shape"
+          />
+          <span class="pricing__tag-text">Ранно записване</span>
+        </div>
+
+        <div class="pricing__card-body">
+          <p class="pricing__price pricing__price--package">
+            <span class="pricing__price-old">€800</span>
+            <span class="pricing__price-new">€600</span>
+          </p>
+
+          <div class="pricing__bottom">
+            <div class="pricing__tickets">
+              <div class="pricing__tickets-row">
+                <span class="pricing__timer">
+                  <img
+                    src="/assets/images/icon-timer.svg"
+                    alt=""
+                    role="presentation"
+                    width="20"
+                    height="20"
+                    loading="lazy"
+                    class="pricing__timer-icon"
+                  />
+                  <span class="pricing__timer-count">23:14:02</span>
+                </span>
+                <span class="pricing__tickets-count">Остават 30 билета</span>
+              </div>
+              <p class="pricing__tickets-note">
+                *след изтичане на срока цената ще се промени на стандартната цена
+              </p>
+            </div>
+            <a href="#register" class="btn btn--primary pricing__cta">Купи</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding-block: 5em; /* 80px */
+  }
+
+  /* Decorative grid-pattern shapes */
+  .pricing__shape {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.4;
+  }
+  .pricing__shape--left {
+    width: 44.19em; /* 707px */
+    height: auto;
+    left: -17.44em; /* -279px */
+    top: 2.31em; /* 37px */
+  }
+  .pricing__shape--right {
+    width: 42.06em; /* 673px */
+    height: auto;
+    left: 68.25em; /* 1092px */
+    top: 0.3em; /* ~5px */
+  }
+
+  .pricing__inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3.5em; /* 56px */
+  }
+
+  /* Eyebrow + title */
+  .pricing__head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25em; /* 20px */
+    width: 34.06em; /* 545px */
+    max-width: 100%;
+  }
+  .pricing__title {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 2.625em; /* 42px */
+    line-height: 1.3;
+    color: var(--color-text-primary);
+    text-align: center;
+  }
+
+  /* Cards row */
+  .pricing__cards {
+    display: flex;
+    gap: 2.25em; /* 36px */
+    align-items: stretch;
+  }
+
+  .pricing__card {
+    position: relative;
+    width: 26.5em; /* 424px */
+    flex-shrink: 0;
+    margin-top: 1.25em; /* 20px — room for the overlapping badge */
+    padding: 3.625em 2.25em 2.625em; /* 58px 36px 42px */
+    border-radius: 1.5em; /* 24px */
+    background-image:
+      linear-gradient(
+        -0.72deg,
+        rgba(196, 211, 223, 0.5) 0.76%,
+        rgba(241, 217, 222, 0.5) 99.22%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(240, 249, 255, 0.7) 0%,
+        rgba(240, 249, 255, 0.7) 100%
+      );
+  }
+
+  /* Badge pill that overlaps the top edge of the card */
+  .pricing__badge {
+    position: absolute;
+    top: -1.25em; /* sits above the card top */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 13em; /* 208px */
+    padding: 0.75em 0.9em; /* 12px 14.33px */
+    background-color: var(--color-bg-white);
+    border-radius: 1.34em; /* ~21.5px */
+    box-shadow:
+      0px 0px 11.942px rgba(169, 8, 49, 0.2),
+      0px 4.777px 9.793px rgba(0, 0, 0, 0.15);
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 1em; /* 16px */
+    line-height: 1;
+    color: var(--color-primary);
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .pricing__card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25em; /* 20px */
+    height: 100%;
+  }
+  .pricing__card--package .pricing__card-body {
+    justify-content: space-between;
+  }
+
+  /* Price */
+  .pricing__price {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 4.75em; /* 76px */
+    line-height: 1;
+    color: var(--color-text-primary);
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .pricing__price--package {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.126em; /* ~9.58px relative to 76px */
+    width: 100%;
+  }
+  .pricing__price-old {
+    font-size: 0.4em; /* 30.5px relative to 76px */
+    line-height: 1.4;
+    color: var(--color-text-secondary);
+    text-decoration: line-through;
+  }
+  .pricing__price-new {
+    color: var(--color-primary);
+  }
+
+  /* Promo form (card 1) */
+  .pricing__promo {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.25em; /* 20px */
+    width: 100%;
+  }
+  .pricing__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em; /* 12px */
+    width: 100%;
+  }
+  .pricing__label {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 1em; /* 16px */
+    line-height: 1;
+    color: var(--color-text-secondary);
+  }
+  .pricing__input {
+    width: 100%;
+    padding: 0.875em 1em; /* 14px 16px */
+    background-color: var(--color-bg-white);
+    border: none;
+    border-radius: 1.8125em; /* 29px */
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.875em; /* 14px */
+    line-height: 1;
+    color: var(--color-text-primary);
+  }
+  .pricing__input::placeholder {
+    color: var(--color-text-inactive);
+  }
+
+  .pricing__cta {
+    width: 100%;
+    padding-block: 1em; /* 16px */
+  }
+
+  /* Package bottom block */
+  .pricing__bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em; /* 8px */
+    width: 100%;
+  }
+  .pricing__tickets {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375em; /* 6px */
+    width: 100%;
+  }
+  .pricing__tickets-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75em; /* 12px */
+    width: 100%;
+  }
+  .pricing__timer {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em; /* ~7.3px */
+    flex-shrink: 0;
+    padding: 0.5em 1.25em 0.5em 1em; /* 8px 20px 8px 16px */
+    border: 1px solid var(--color-bg-white);
+    border-radius: 2.5625em; /* 41px */
+    background-image: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.42) 1.76%,
+      rgba(255, 255, 255, 0.7) 98.47%
+    );
+  }
+  .pricing__timer-icon {
+    width: 1.25em; /* 20px */
+    height: 1.25em;
+    flex-shrink: 0;
+  }
+  .pricing__timer-count {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 1em; /* 16px */
+    line-height: 1.5;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .pricing__tickets-count {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 1em; /* 16px */
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+  }
+  .pricing__tickets-note {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.75em; /* 12px */
+    line-height: 1.4;
+    color: var(--color-text-secondary);
+    width: 100%;
+  }
+
+  /* Early-bird tag (decorative) on the package card */
+  .pricing__tag {
+    position: absolute;
+    top: -0.5em;
+    right: -5.5em;
+    z-index: 2;
+    width: 12.5em; /* ~200px tag width */
+    height: 5.5em;
+    pointer-events: none;
+  }
+  .pricing__tag-shape {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 14.6em; /* 234px (rotated tag long edge) */
+    height: auto;
+    transform: translateY(-50%) rotate(-66.35deg);
+    transform-origin: center;
+  }
+  .pricing__tag-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(23.14deg);
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 1.1em; /* ~17.6px */
+    line-height: 1.5;
+    color: var(--color-text-primary);
+    white-space: nowrap;
+  }
+
+  /* Tablet */
+  @media (max-width: 991px) {
+    .pricing__shape--left {
+      left: -22em;
+    }
+    .pricing__shape--right {
+      left: auto;
+      right: -22em;
+    }
+  }
+
+  /* Mobile landscape — stack cards */
+  @media (max-width: 767px) {
+    .pricing__cards {
+      flex-direction: column;
+      align-items: center;
+      gap: 3em;
+      width: 100%;
+    }
+    .pricing__card {
+      width: 100%;
+      max-width: 26.5em;
+    }
+    .pricing__tag {
+      right: -3.5em;
+    }
+  }
+
+  /* Mobile portrait */
+  @media (max-width: 479px) {
+    .pricing__title {
+      font-size: 2em;
+    }
+    .pricing__price,
+    .pricing__price-new {
+      font-size: 4em;
+    }
+    .pricing__tickets-row {
+      flex-wrap: wrap;
+      gap: 0.5em;
+    }
+    .pricing__tag {
+      right: -2em;
+      transform: scale(0.85);
+      transform-origin: top right;
+    }
+  }
+</style>

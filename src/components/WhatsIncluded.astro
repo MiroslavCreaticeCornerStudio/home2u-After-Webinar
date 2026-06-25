@@ -1,0 +1,297 @@
+---
+// What's included section — heading block + grid of icon cards + CTA detail card.
+// Figma node 2856:349.
+// 4-column grid across 3 rows. The heading block occupies the first two cells of
+// row 1; the last cell of row 3 is the CTA "Detail container".
+
+// Topic cards in grid order (after the heading block which fills cells 1–2).
+const cards = [
+  {
+    icon: "icon-included-psychology.svg",
+    title: "Психология на продажбите",
+    variant: "light",
+  },
+  {
+    icon: "icon-included-principles.svg",
+    title: "Основни принципи на продажбения процес",
+    description:
+      "Как се подрежда пътят от първия контакт до сделката и кои са основните правила, които държат процеса ясен и професионален.",
+    variant: "filled",
+  },
+  {
+    icon: "icon-included-stages.svg",
+    title: "Етапи на търговския процес",
+    variant: "light",
+  },
+  {
+    icon: "icon-included-flow.svg",
+    title: "Система за непрекъснат поток за продажби",
+    variant: "light",
+  },
+  {
+    icon: "icon-included-seller.svg",
+    title: "Как да работим с продавач така че да избират нас",
+    variant: "light",
+  },
+  {
+    icon: "icon-included-buyer.svg",
+    title: "Ефективна работа с купувач",
+    variant: "light",
+  },
+  {
+    icon: "icon-included-trust.svg",
+    title: "Как доверието се превръща в затворена сделка",
+    variant: "light",
+  },
+  {
+    icon: "icon-included-admin.svg",
+    title: "Администрация и документална подготовка:",
+    variant: "light",
+  },
+  {
+    icon: "icon-included-retention.svg",
+    title: "Как да работим така, че да нямаме бивши клиенти",
+    variant: "light",
+  },
+];
+---
+
+<section class="whats-included" id="whats-included">
+  <div class="whats-included__inner container container--padded">
+    <div class="whats-included__grid">
+      <!-- Heading block — fills the first two cells of row 1 -->
+      <div class="whats-included__intro">
+        <div class="whats-included__intro-head">
+          <img
+            src="/assets/images/included-accent-line.svg"
+            alt=""
+            width="40"
+            height="2"
+            loading="lazy"
+            class="whats-included__accent"
+          />
+          <h2 class="whats-included__title">Какво включва програмата?</h2>
+        </div>
+        <p class="whats-included__desc">
+          В рамките на една седмица ще минем през ключовите теми, които изграждат
+          основата на успешното брокерство.
+        </p>
+      </div>
+
+      <!-- Topic cards -->
+      {
+        cards.map((card) => (
+          <article
+            class:list={[
+              "included__card",
+              card.variant === "filled" && "included__card--filled",
+            ]}
+          >
+            <img
+              src={`/assets/images/${card.icon}`}
+              alt=""
+              width="56"
+              height="56"
+              loading="lazy"
+              class="included__icon"
+            />
+            <div class="included__card-text">
+              <h3 class="included__card-title">{card.title}</h3>
+              {card.description && (
+                <p class="included__card-desc">{card.description}</p>
+              )}
+            </div>
+          </article>
+        ))
+      }
+
+      <!-- CTA detail card — fills the last cell of row 3 -->
+      <div class="included__cta">
+        <div class="included__cta-head">
+          <img
+            src="/assets/images/included-accent-line.svg"
+            alt=""
+            width="40"
+            height="2"
+            loading="lazy"
+            class="whats-included__accent"
+          />
+          <p class="included__cta-title">
+            Искаш ли постоянен поток от добри възможности?
+          </p>
+        </div>
+        <a href="#register" class="btn btn--primary included__cta-btn"
+          >Запиши се сега</a
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .whats-included {
+    width: 100%;
+    padding-block: var(--spacing-section);
+  }
+
+  /* 4-column grid: heading block spans the first two cells of row 1.
+     Cards auto-flow into the remaining cells across 3 rows. */
+  .whats-included__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5em; /* 24px */
+    align-items: stretch;
+  }
+
+  /* Heading block — occupies cells 1–2 of the first row */
+  .whats-included__intro {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2em; /* 32px */
+    padding-right: 2.5em;
+  }
+  .whats-included__intro-head {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em; /* 20px */
+  }
+  .whats-included__accent {
+    width: 2.5em; /* 40px */
+    height: 2px;
+  }
+  .whats-included__title {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 2.625em; /* 42px */
+    line-height: 1.3;
+    color: #000000; /* Figma: text-black */
+  }
+  .whats-included__desc {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1.125em; /* 18px */
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+  }
+
+  /* Topic card */
+  .included__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2em;
+    min-height: 24.3125em; /* 389px */
+    padding: 2em; /* 32px */
+    border: 2px solid var(--color-bg-white);
+    border-radius: 1.875em; /* 30px */
+    background-image: linear-gradient(
+      -90deg,
+      rgba(255, 255, 255, 0.21) 1.76%,
+      rgba(255, 255, 255, 0.135) 98.47%
+    );
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+  }
+  .included__card--filled {
+    border: none;
+    background-image: none;
+    background-color: var(--color-primary); /* #a90831 */
+  }
+  .included__icon {
+    width: 3.5em; /* 56px */
+    height: 3.5em;
+    flex-shrink: 0;
+  }
+  .included__card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em; /* 8px */
+  }
+  .included__card-title {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 1.375em; /* 22px */
+    line-height: 1.4;
+    color: var(--color-primary);
+  }
+  .included__card--filled .included__card-title {
+    color: var(--color-text-white);
+  }
+  .included__card-desc {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.875em; /* 14px */
+    line-height: 1.5;
+    color: var(--color-text-white);
+  }
+
+  /* CTA detail card */
+  .included__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.25em; /* 36px */
+    min-height: 24.375em; /* 390px */
+    padding: 3em 2em; /* 48px 32px */
+    border: 1px solid var(--color-bg-white);
+    border-radius: 1.875em; /* 30px */
+    background-image: linear-gradient(
+      -90deg,
+      rgba(255, 255, 255, 0.42) 1.76%,
+      rgba(255, 255, 255, 0.7) 98.47%
+    );
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+  }
+  .included__cta-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25em; /* 20px */
+    width: 100%;
+  }
+  .included__cta-title {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 1.5em; /* 24px */
+    line-height: 1.2;
+    text-align: center;
+    color: var(--color-text-primary);
+  }
+  .included__cta-btn {
+    width: 100%;
+    padding: 1.25em 3.5em;
+  }
+
+  /* Tablet — 4-col → 2-col */
+  @media (max-width: 991px) {
+    .whats-included__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .whats-included__intro {
+      grid-column: span 2;
+      padding-right: 0;
+    }
+  }
+
+  /* Mobile landscape — keep 2-col cards, intro full width */
+  @media (max-width: 767px) {
+    .included__card,
+    .included__cta {
+      min-height: 0;
+    }
+  }
+
+  /* Mobile portrait — 2-col → 1-col */
+  @media (max-width: 479px) {
+    .whats-included__grid {
+      grid-template-columns: 1fr;
+    }
+    .whats-included__intro {
+      grid-column: span 1;
+    }
+  }
+</style>

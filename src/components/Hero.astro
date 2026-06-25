@@ -1,0 +1,317 @@
+---
+// Hero section — nav bar + display headline + glass CTA card + info bar.
+// Figma node 2856:184.
+const navLinks = [
+  { label: "За кого е подходящо", href: "#target-audience" },
+  { label: "Защо да се запишеш", href: "#why-join" },
+  { label: "Какво включва", href: "#whats-included" },
+  { label: "За лектора", href: "#speaker" },
+  { label: "Цена", href: "#pricing" },
+  { label: "Въпроси", href: "#faq" },
+];
+
+const info = [
+  { icon: "icon-calendar.svg", label: "Дати:", value: "Понеделник – Петък" },
+  { icon: "icon-clock.svg", label: "Час:", value: "18:00 – 19:30 ч." },
+  { icon: "icon-mappin.svg", label: "Място:", value: "Hilton Sofia" },
+  { icon: "icon-user.svg", label: "Лектор:", value: "Ралица Ценова" },
+];
+---
+
+<section class="hero">
+  <!-- Nav -->
+  <header class="hero__nav">
+    <div class="hero__nav-inner container container--padded">
+      <a class="hero__logo" href="#" aria-label="Home2U">
+        <img src="/assets/images/logo-home2u-icon.svg" alt="" width="35" height="35" class="hero__logo-icon" />
+        <img src="/assets/images/logo-home2u-text.svg" alt="Home2U" width="145" height="35" class="hero__logo-text" />
+      </a>
+
+      <nav class="hero__nav-links" aria-label="Основна навигация">
+        {navLinks.map((l) => <a href={l.href}>{l.label}</a>)}
+      </nav>
+
+      <a href="#register" class="btn btn--outline hero__nav-cta">Запиши се сега</a>
+    </div>
+  </header>
+
+  <!-- Hero body -->
+  <div class="hero__body container container--padded">
+    <h1 class="hero__headline">
+      <span class="hero__hl-line hero__hl-line--top">Как да правим</span>
+      <span class="hero__hl-big hero__hl-big--first">сделки</span>
+      <span class="hero__hl-divider">
+        <span class="hero__hl-rule" aria-hidden="true"></span>
+        <span class="hero__hl-za">за</span>
+      </span>
+      <span class="hero__hl-big hero__hl-big--second">милиони</span>
+      <span class="hero__hl-line hero__hl-line--bottom">от брокерство</span>
+    </h1>
+
+    <div class="hero__card">
+      <div class="hero__card-content">
+        <hr class="accent-line" />
+        <p class="hero__card-desc">
+          Устойчивият успех в брокерството не идва случайно. В този курс ще научиш
+          как се подреждат клиентите, процесите и сделките от човек, който е стигал
+          до рекордни резултати в брокерството.
+        </p>
+      </div>
+      <a href="#register" class="btn btn--primary hero__card-cta">Запази своето място</a>
+    </div>
+  </div>
+
+  <!-- Info bar -->
+  <div class="hero__info container container--padded">
+    {
+      info.map((item) => (
+        <div class="hero__info-card">
+          <img src={`/assets/images/${item.icon}`} alt="" width="28" height="28" class="hero__info-icon" />
+          <div class="hero__info-text">
+            <span class="hero__info-label">{item.label}</span>
+            <span class="hero__info-value">{item.value}</span>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    width: 100%;
+    padding-bottom: 5em;
+    background-image:
+      linear-gradient(179.2deg, rgba(255, 255, 255, 0.7) 36.78%, rgba(205, 217, 228, 0) 146.75%),
+      linear-gradient(122.73deg, rgba(165, 196, 214, 0.7) 12.11%, rgba(249, 221, 222, 0.7) 80.81%);
+  }
+
+  /* Nav */
+  .hero__nav {
+    width: 100%;
+  }
+  .hero__nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4.375em; /* 70px */
+    gap: 2em;
+  }
+  .hero__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65em;
+    flex-shrink: 0;
+  }
+  .hero__logo-icon {
+    width: 2.19em;
+    height: 2.19em;
+  }
+  .hero__logo-text {
+    width: auto;
+    height: 2.19em;
+  }
+  .hero__nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5em; /* 24px */
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 0.875em; /* 14px */
+    line-height: 1.4;
+    color: var(--color-text-primary);
+    white-space: nowrap;
+  }
+  .hero__nav-links a:hover {
+    color: var(--color-primary);
+  }
+  .hero__nav-cta {
+    flex-shrink: 0;
+    font-size: 1em;
+  }
+
+  /* Hero body */
+  .hero__body {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 3em;
+    padding-top: 6.06em; /* ~97px above content (nav 70 + 167-70) */
+  }
+
+  .hero__headline {
+    font-family: var(--font-heading);
+    font-size: 1em; /* neutralize browser h1 default so child em values stay accurate */
+    font-weight: 600;
+    margin: 0;
+    padding-top: 1.5em;
+  }
+  .hero__hl-line {
+    display: block;
+    font-weight: 500;
+    font-size: 2.25em; /* 36px */
+    line-height: 1.3;
+    color: var(--color-text-primary);
+  }
+  .hero__hl-line--bottom {
+    padding-left: 1.55em; /* 56px relative to 36px */
+  }
+  .hero__hl-big {
+    display: block;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+  .hero__hl-big--first {
+    font-size: 5.5em; /* ~88px */
+    line-height: 1.1;
+    text-align: center;
+    width: 6.09em; /* 335px / 55 */
+  }
+  .hero__hl-big--second {
+    font-size: 5.15em; /* ~82px */
+    line-height: 0.95;
+    padding-left: 0.68em; /* 56px relative to 82px */
+  }
+  .hero__hl-divider {
+    display: flex;
+    align-items: center;
+    gap: 1.25em;
+    width: 20.94em; /* 335px-ish row */
+    margin: 0.1em 0;
+  }
+  .hero__hl-rule {
+    flex: 1 1 auto;
+    height: 2px;
+    background-color: var(--color-primary);
+  }
+  .hero__hl-za {
+    font-size: 2.28em; /* 36.5px */
+    line-height: 1.3;
+    color: var(--color-primary);
+  }
+
+  /* Glass card */
+  .hero__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 36.44em; /* 583px */
+    flex-shrink: 0;
+    padding: 4em 4em 4.5em;
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: var(--radius-lg);
+    background-image: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.3)
+    );
+    -webkit-backdrop-filter: blur(12.7px);
+    backdrop-filter: blur(12.7px);
+    gap: 2.25em;
+  }
+  .hero__card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.125em;
+  }
+  .hero__card-desc {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1.125em; /* 18px */
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+  }
+  .hero__card-cta {
+    align-self: flex-start;
+  }
+
+  /* Info bar */
+  .hero__info {
+    display: flex;
+    gap: 0.8125em; /* 13px */
+    margin-top: 3.06em; /* ~49px */
+  }
+  .hero__info-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 1em 1.25em;
+    background-color: var(--color-bg-card);
+    border-radius: var(--radius-sm);
+  }
+  .hero__info-icon {
+    width: 1.75em;
+    height: 1.75em;
+    flex-shrink: 0;
+  }
+  .hero__info-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5;
+  }
+  .hero__info-label {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.875em; /* 14px */
+    color: var(--color-text-secondary);
+  }
+  .hero__info-value {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 1em; /* 16px */
+    color: var(--color-text-primary);
+  }
+
+  /* Tablet */
+  @media (max-width: 991px) {
+    .hero__nav-links {
+      display: none;
+    }
+    .hero__body {
+      flex-direction: column;
+      gap: 2.5em;
+      padding-top: 3em;
+    }
+    .hero__card {
+      width: 100%;
+    }
+    .hero__hl-big--first {
+      width: auto;
+      text-align: left;
+    }
+    .hero__hl-divider {
+      width: 100%;
+      max-width: 22em;
+    }
+  }
+
+  /* Mobile landscape */
+  @media (max-width: 767px) {
+    .hero__info {
+      flex-wrap: wrap;
+    }
+    .hero__info-card {
+      flex: 1 1 45%;
+    }
+  }
+
+  /* Mobile portrait */
+  @media (max-width: 479px) {
+    .hero__hl-big--first {
+      font-size: 4em;
+    }
+    .hero__hl-big--second {
+      font-size: 3.75em;
+    }
+    .hero__info-card {
+      flex: 1 1 100%;
+    }
+    .hero__nav-cta {
+      padding: 0.75em 1em;
+      font-size: 0.875em;
+    }
+  }
+</style>

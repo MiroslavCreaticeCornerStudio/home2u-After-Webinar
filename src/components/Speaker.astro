@@ -1,0 +1,232 @@
+---
+// Speaker section — portrait of the lecturer (Ралица Ценова) with decorative
+// blurred shapes on the left, glass details card with tagline pill, name,
+// role and 3 bio paragraphs on the right. Figma node 2856:412.
+const bio = [
+  "От стартиращ брокер до изпълнителен директор на Home2U, Ралица Ценова има над 12 години опит в недвижимите имоти и впечатляващи резултати зад гърба си.",
+  "Още в началото на кариерата си тя се отличава с рекордни продажби, а по-късно развива един от най-силните екипи в Home2U.",
+  "През годините Ралица е обучила стотици успешни брокери и мениджъри, много от които днес изграждат собствени екипи и се нареждат сред най-силните имена в компанията.",
+];
+---
+
+<section class="speaker" id="speaker">
+  <div class="speaker__inner container container--padded">
+    <!-- Left: portrait + decorative shapes -->
+    <div class="speaker__photo">
+      <div class="speaker__shapes" aria-hidden="true">
+        <img src="/assets/images/speaker-shape-grid.svg" alt="" width="921" height="555" class="speaker__shape speaker__shape--grid" />
+        <img src="/assets/images/speaker-shape-ellipse-1.svg" alt="" width="520" height="348" class="speaker__shape speaker__shape--ellipse-1" />
+        <img src="/assets/images/speaker-shape-ellipse-2.svg" alt="" width="304" height="272" class="speaker__shape speaker__shape--ellipse-2" />
+      </div>
+      <img
+        src="/assets/images/speaker-ralica-tsenova.png"
+        alt="Ралица Ценова"
+        width="683"
+        height="1024"
+        loading="lazy"
+        class="speaker__portrait"
+      />
+    </div>
+
+    <!-- Right: details -->
+    <div class="speaker__details">
+      <div class="speaker__header">
+        <span class="speaker__tagline">За лектора</span>
+        <div class="speaker__detail">
+          <h2 class="speaker__name">Коя е Ралица Ценова?</h2>
+          <p class="speaker__role">Изпълнителен директор Home2U</p>
+        </div>
+      </div>
+
+      <div class="speaker__bio">
+        {bio.map((p) => <p class="speaker__bio-text">{p}</p>)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .speaker {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding-block: 5em; /* 80px */
+  }
+
+  .speaker__inner {
+    display: flex;
+    align-items: center;
+    gap: 2em; /* 32px */
+  }
+
+  /* Left — photo block */
+  .speaker__photo {
+    position: relative;
+    flex-shrink: 0;
+    width: 39.125em; /* 626px */
+    height: 37.625em; /* 602px — Figma image block; portrait is cropped to fit */
+    overflow: hidden;
+    border-radius: 1.875em; /* 30px */
+    background-image: linear-gradient(
+      -0.87deg,
+      rgba(196, 211, 223, 0.5) 0.76%,
+      rgba(241, 217, 222, 0.5) 99.22%
+    );
+  }
+
+  .speaker__shapes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .speaker__shape {
+    position: absolute;
+    opacity: 0.8;
+  }
+  .speaker__shape--grid {
+    top: -12.5625em; /* -201px */
+    left: 3em; /* 48px */
+    width: 57.5625em; /* 921px */
+    height: 34.6875em; /* 555px */
+  }
+  .speaker__shape--ellipse-1 {
+    top: -2.04em; /* -32.62px */
+    left: 12.14em; /* 194.19px */
+    width: 32.48em; /* 519.62px */
+    height: 21.76em; /* 348.13px */
+  }
+  .speaker__shape--ellipse-2 {
+    top: -6.95em; /* -111.13px */
+    left: 33.64em; /* 538.19px */
+    width: 18.98em; /* 303.71px */
+    height: 16.98em; /* 271.69px */
+  }
+
+  .speaker__portrait {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    pointer-events: none;
+  }
+
+  /* Right — glass details card */
+  .speaker__details {
+    display: flex;
+    flex: 1 1 0;
+    min-width: 0;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2.25em; /* 36px */
+    padding: 2.25em 2.625em 3em; /* 36px 42px 48px */
+    border: 2px solid var(--color-bg-white);
+    border-radius: 1.875em; /* 30px */
+    background-image: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.07) 1.76%,
+      rgba(255, 255, 255, 0.04) 98.47%
+    );
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+  }
+
+  .speaker__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.75em; /* 28px */
+  }
+
+  .speaker__tagline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5em 1.25em; /* 8px 20px */
+    border: 1px solid var(--color-primary);
+    border-radius: 2.5em; /* 40px */
+    background-color: rgba(255, 255, 255, 0.4);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.875em; /* 14px */
+    line-height: 1.5;
+    color: var(--color-text-primary);
+    white-space: nowrap;
+  }
+
+  .speaker__detail {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5em; /* 8px */
+    width: 100%;
+  }
+
+  .speaker__name {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 2.625em; /* 42px */
+    line-height: 1.3;
+    color: var(--color-primary);
+  }
+
+  .speaker__role {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1.125em; /* 18px */
+    line-height: 1.5;
+    color: #000000; /* Figma: text-black */
+  }
+
+  .speaker__bio {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75em; /* 12px */
+    width: 100%;
+  }
+
+  .speaker__bio-text {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1em; /* 16px */
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+  }
+
+  /* Tablet */
+  @media (max-width: 991px) {
+    .speaker__inner {
+      flex-direction: column;
+      gap: 2.5em;
+      align-items: stretch;
+    }
+    .speaker__photo {
+      width: 100%;
+      max-width: 32em;
+      margin-inline: auto;
+    }
+  }
+
+  /* Mobile landscape */
+  @media (max-width: 767px) {
+    .speaker__details {
+      padding: 2em 1.75em 2.25em;
+    }
+  }
+
+  /* Mobile portrait */
+  @media (max-width: 479px) {
+    .speaker__photo {
+      max-width: 100%;
+    }
+    .speaker__name {
+      font-size: 2em; /* 32px */
+    }
+  }
+</style>

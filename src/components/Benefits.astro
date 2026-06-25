@@ -1,0 +1,163 @@
+---
+// Benefits section — 4 stat/benefit columns separated by thin vertical dividers.
+// Figma node 2856:439 ("Benefits block").
+const benefits = [
+  {
+    icon: "benefits-icon-broker.svg",
+    iconSize: 32,
+    title: "„Брокер на месеца“",
+    text: "Многократен носител на отличието „Брокер на месеца“",
+  },
+  {
+    icon: "benefits-icon-trophy.svg",
+    iconSize: 36,
+    title: "Най-много сделки",
+    text: "Рекорд за най-много лични и екипни сделки за една година",
+  },
+  {
+    icon: "benefits-icon-certificate.svg",
+    iconSize: 32,
+    title: "Стотици обучения",
+    text: "Стотици обучени брокери и мениджъри",
+  },
+  {
+    icon: "benefits-icon-handshake.svg",
+    iconSize: 36,
+    title: "Сделки за милиони",
+    text: "Множество затворени сделки за милиони",
+  },
+];
+---
+
+<section class="benefits">
+  <div class="benefits__inner container container--padded">
+    <ul class="benefits__row">
+      {
+        benefits.map((b, i) => (
+          <>
+            {i > 0 && <li class="benefits__divider" aria-hidden="true" />}
+            <li class="benefits__col">
+              <div class="benefits__icon-box">
+                <img
+                  src={`/assets/images/${b.icon}`}
+                  alt=""
+                  width={b.iconSize}
+                  height={b.iconSize}
+                  loading="lazy"
+                  class:list={["benefits__icon", `benefits__icon--${b.iconSize}`]}
+                />
+              </div>
+              <div class="benefits__text">
+                <p class="benefits__title">{b.title}</p>
+                <p class="benefits__desc">{b.text}</p>
+              </div>
+            </li>
+          </>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .benefits {
+    width: 100%;
+    padding-top: 1.25em; /* 20px */
+    padding-bottom: 5em; /* 80px */
+  }
+
+  .benefits__row {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  .benefits__col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5em; /* 24px */
+    width: 16.5em; /* 264px */
+    flex: 0 1 16.5em;
+    text-align: center;
+  }
+
+  /* Thin vertical divider rule between columns — 108px tall, centered. */
+  .benefits__divider {
+    flex: 0 0 auto;
+    align-self: center;
+    width: 1px;
+    height: 6.75em; /* 108px */
+    /* Figma "underline" vector: #707070 at 20% opacity (non-token). */
+    background-color: rgba(112, 112, 112, 0.2);
+  }
+
+  .benefits__icon-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75em; /* 12px */
+    background-color: var(--color-bg-white);
+    border-radius: 0.6875em; /* 11px */
+  }
+
+  .benefits__icon--32 {
+    width: 2em; /* 32px */
+    height: 2em;
+  }
+  .benefits__icon--36 {
+    width: 2.25em; /* 36px */
+    height: 2.25em;
+  }
+
+  .benefits__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em; /* 8px */
+    width: 100%;
+    word-break: break-word;
+  }
+
+  .benefits__title {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 1.375em; /* 22px */
+    line-height: 1.4;
+    color: var(--color-primary);
+  }
+
+  .benefits__desc {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1.125em; /* 18px */
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+  }
+
+  /* Tablet — 4-col → 2-col grid; hide the inline dividers. */
+  @media (max-width: 991px) {
+    .benefits__row {
+      flex-wrap: wrap;
+      gap: 2.5em 1.5em;
+      justify-content: center;
+    }
+    .benefits__col {
+      width: 45%;
+      flex: 0 1 45%;
+      max-width: 18em;
+    }
+    .benefits__divider {
+      display: none;
+    }
+  }
+
+  /* Mobile portrait — single column. */
+  @media (max-width: 479px) {
+    .benefits__col {
+      width: 100%;
+      flex: 1 1 100%;
+      max-width: 22em;
+    }
+  }
+</style>

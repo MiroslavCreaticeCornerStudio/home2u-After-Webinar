@@ -1,0 +1,221 @@
+---
+// Why join section — light card panel with reasons-to-enroll bullet list
+// on the left and an analytics chart mockup on the right.
+// Figma node 2856:291.
+const bullets = [
+  { icon: "icon-why-system.svg", text: "Ясна система за действие" },
+  { icon: "icon-why-confidence.svg", text: "Повече увереност с клиенти" },
+  { icon: "icon-why-market.svg", text: "Практически знания от реалния пазар" },
+  { icon: "icon-why-longterm.svg", text: "Поглед към дългосрочния успех" },
+  { icon: "icon-why-foundation.svg", text: "Основата зад постоянните силни резултати" },
+  { icon: "icon-why-trust.svg", text: "По-силен подход към изграждането на доверие" },
+];
+---
+
+<section class="why-join" id="why-join">
+  <div class="why-join__inner container container--padded">
+    <div class="why-join__card">
+      <!-- Left column: text + bullet list -->
+      <div class="why-join__text">
+        <div class="why-join__heading">
+          <hr class="accent-line" />
+          <h2 class="why-join__title">Защо да се запишеш?</h2>
+          <p class="why-join__desc">
+            Този курс е създаден, за да ти даде не просто теоритични знания, а
+            по-ясна основа за действие в реална среда.
+          </p>
+        </div>
+
+        <ul class="why-join__list">
+          {
+            bullets.map((b) => (
+              <li class="why-join__item">
+                <img
+                  src={`/assets/images/${b.icon}`}
+                  alt=""
+                  width="28"
+                  height="28"
+                  loading="lazy"
+                  class="why-join__item-icon"
+                />
+                <span class="why-join__item-text">{b.text}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Right column: chart mockup inside gradient panel -->
+      <div class="why-join__visual">
+        <img
+          src="/assets/images/whyjoin-shapes.svg"
+          alt=""
+          width="764"
+          height="526"
+          loading="lazy"
+          class="why-join__shapes"
+          aria-hidden="true"
+        />
+        <img
+          src="/assets/images/whyjoin-chart.png"
+          alt="Графика на ръст на резултатите с логото на Home2U"
+          width="531"
+          height="453"
+          loading="lazy"
+          class="why-join__chart"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-join {
+    width: 100%;
+    padding-block: 5em; /* 80px section padding */
+  }
+
+  .why-join__card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2em;
+    padding: 3.75em 3em; /* 60px 48px */
+    border: 1px solid #c4d3df; /* Figma card border */
+    border-radius: 2em; /* 32px */
+    background-color: #f3f3f4; /* Figma card surface */
+    overflow: hidden; /* clip decorative shapes */
+  }
+
+  /* Left column */
+  .why-join__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2.375em; /* 38px */
+    width: 34.625em; /* 554px */
+    flex-shrink: 0;
+  }
+  .why-join__heading {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em; /* 12px */
+  }
+  .why-join__title {
+    font-family: var(--font-heading);
+    font-weight: 500; /* Medium */
+    font-size: 2.625em; /* 42px */
+    line-height: 1.3;
+    color: var(--color-text-primary);
+  }
+  .why-join__desc {
+    font-family: var(--font-body);
+    font-weight: 400; /* Book */
+    font-size: 1.125em; /* 18px */
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+  }
+
+  .why-join__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em; /* 20px */
+  }
+  .why-join__item {
+    display: flex;
+    align-items: center;
+    gap: 1em; /* 16px */
+  }
+  .why-join__item-icon {
+    width: 1.75em; /* 28px */
+    height: 1.75em;
+    flex-shrink: 0;
+  }
+  .why-join__item-text {
+    font-family: var(--font-heading);
+    font-weight: 500; /* Medium */
+    font-size: 1.375em; /* 22px */
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+  }
+
+  /* Right column — gradient panel holding the chart */
+  .why-join__visual {
+    position: relative;
+    width: 35.158em; /* 562.525px */
+    height: 33.25em; /* 532px */
+    flex-shrink: 0;
+    border-radius: 2.044em; /* 32.705px */
+    overflow: hidden;
+    /* Figma gradient: top bluish → bottom pinkish, near-vertical */
+    background-image: linear-gradient(
+      180deg,
+      rgba(196, 211, 223, 0.5) 0%,
+      rgba(241, 217, 222, 0.5) 100%
+    );
+  }
+  .why-join__shapes {
+    position: absolute;
+    top: -3.27em; /* -52.33px */
+    left: -9.95em; /* -159.16px */
+    width: 47.76em; /* 764.205px */
+    height: auto;
+    pointer-events: none;
+    user-select: none;
+  }
+  .why-join__chart {
+    position: absolute;
+    top: 5.55em; /* ~88.5px from container top */
+    left: 4.31em; /* ~69px from container left */
+    width: 33.18em; /* 531px */
+    height: auto;
+  }
+
+  /* Tablet */
+  @media (max-width: 991px) {
+    .why-join__card {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 2.5em;
+      padding: 3em 2em;
+    }
+    .why-join__text {
+      width: 100%;
+    }
+    .why-join__visual {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 562 / 532;
+    }
+    .why-join__chart {
+      width: 62%;
+    }
+  }
+
+  /* Mobile landscape */
+  @media (max-width: 767px) {
+    .why-join__card {
+      padding: 2.5em 1.5em;
+    }
+    .why-join__visual {
+      aspect-ratio: 4 / 3;
+    }
+    .why-join__chart {
+      width: 70%;
+      left: 6%;
+    }
+  }
+
+  /* Mobile portrait */
+  @media (max-width: 479px) {
+    .why-join__card {
+      padding: 2em 1.25em;
+      border-radius: 1.5em;
+    }
+    .why-join__item-text {
+      font-size: 1.125em; /* 18px — keeps long labels readable */
+    }
+    .why-join__chart {
+      width: 78%;
+    }
+  }
+</style>
