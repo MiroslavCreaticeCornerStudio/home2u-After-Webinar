@@ -74,7 +74,9 @@ const items = [
     position: relative;
     width: 100%;
     padding-block: 5em; /* 80px */
-    overflow: hidden;
+    /* `clip` (not `hidden`) so the decorative shape is clipped WITHOUT trapping
+       the sticky intro inside a scroll container. */
+    overflow: clip;
   }
 
   /* Decorative blurred shape behind the content */
@@ -97,13 +99,16 @@ const items = [
     gap: 3em;
   }
 
-  /* Left — eyebrow + title */
+  /* Left — eyebrow + title. Sticky so it stays in view while the cards scroll. */
   .ta__intro {
     display: flex;
     flex-direction: column;
     gap: 1.25em; /* 20px */
     width: 34.0625em; /* 545px */
     flex-shrink: 0;
+    position: sticky;
+    top: 2.5em;
+    align-self: flex-start;
   }
   .ta__title {
     font-family: var(--font-heading);
@@ -172,6 +177,10 @@ const items = [
     .ta__intro,
     .ta__list {
       width: 100%;
+    }
+    /* No sticky on the stacked layout */
+    .ta__intro {
+      position: static;
     }
   }
 
