@@ -90,7 +90,7 @@
                     loading="lazy"
                     class="pricing__timer-icon"
                   />
-                  <span class="pricing__timer-count">23:14:02</span>
+                  <span class="pricing__timer-count" data-countdown>23:14:02</span>
                 </span>
                 <span class="pricing__tickets-count">Остават 30 билета</span>
               </div>
@@ -105,6 +105,54 @@
     </div>
   </div>
 </section>
+
+<script>
+  // Evergreen offer countdown (HH:MM:SS). Per-visitor deadline persisted in
+  // localStorage so it survives reloads; restarts at DURATION once it expires.
+  // To count down to a fixed date instead, set FIXED_DEADLINE to a timestamp.
+  document.querySelectorAll<HTMLElement>("[data-countdown]").forEach((el) => {
+    const KEY = "h2u_offer_deadline";
+    const DURATION = 24 * 60 * 60 * 1000; // 24h
+    const FIXED_DEADLINE: number | null = null; // e.g. new Date("2026-07-01T00:00:00").getTime()
+
+    const pad = (n: number) => String(n).padStart(2, "0");
+
+    function nextDeadline(): number {
+      if (FIXED_DEADLINE) return FIXED_DEADLINE;
+      let d = parseInt(localStorage.getItem(KEY) || "0", 10);
+      if (!d || d <= Date.now()) {
+        d = Date.now() + DURATION;
+        try {
+          localStorage.setItem(KEY, String(d));
+        } catch {
+          /* ignore */
+        }
+      }
+      return d;
+    }
+
+    let deadline = nextDeadline();
+
+    function tick() {
+      let diff = deadline - Date.now();
+      if (diff <= 0) {
+        if (FIXED_DEADLINE) {
+          el.textContent = "00:00:00";
+          return;
+        }
+        deadline = nextDeadline();
+        diff = deadline - Date.now();
+      }
+      const h = Math.floor(diff / 3_600_000);
+      const m = Math.floor((diff % 3_600_000) / 60_000);
+      const s = Math.floor((diff % 60_000) / 1000);
+      el.textContent = `${pad(h)}:${pad(m)}:${pad(s)}`;
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  });
+</script>
 
 <style>
   .pricing {
