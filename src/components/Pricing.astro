@@ -361,13 +361,13 @@
   /* Early-bird tag — overhangs the top-right corner of the package card.
      Single pre-composed image at the Figma size (~302×173). */
   .pricing__tag {
-    position: absolute;
-    top: -1.75em;
-    right: -6.5em;
+    z-index: 1;
+    pointer-events: none;
     width: 18.9em; /* ~302px */
     height: auto;
-    z-index: 3;
-    pointer-events: none;
+    position: absolute;
+    top: -1.75em;
+    right: -8.5em;
   }
 
   /* Tablet */
