@@ -75,6 +75,16 @@ const info = [
       ))
     }
   </div>
+
+  <!-- Speaker cutout, centered between the headline and the card -->
+  <img
+    class="hero__speaker"
+    src="/assets/images/hero-speaker.webp"
+    alt="Ралица Ценова"
+    width="900"
+    height="1301"
+    fetchpriority="high"
+  />
 </section>
 
 <style>
@@ -96,6 +106,27 @@ const info = [
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
+  }
+
+  /* Keep the headline, card and info bar above the speaker cutout. */
+  .hero__nav,
+  .hero__body,
+  .hero__info {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Speaker cutout — centered, standing above the info bar, behind the content. */
+  .hero__speaker {
+    position: absolute;
+    left: 45%;
+    bottom: 7.25em; /* sits just above the info bar */
+    transform: translateX(-50%);
+    width: auto;
+    height: 32em; /* ~512px — spans below nav to above info bar */
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
   }
 
   /* Nav */
@@ -279,6 +310,10 @@ const info = [
   /* Tablet */
   @media (max-width: 991px) {
     .hero__nav-links {
+      display: none;
+    }
+    /* Stacked hero has no room for the centered cutout. */
+    .hero__speaker {
       display: none;
     }
     .hero__body {
