@@ -28,7 +28,7 @@ const details = [
     <div class="final-cta__details-card">
       <div class="final-cta__header">
         <h2 class="final-cta__title">
-          Направи първата крачка към сделките за милиони
+          Направи<br class="final-cta__title-break" /> първата крачка към сделките за милиони
         </h2>
         <hr class="accent-line final-cta__accent" />
       </div>
@@ -203,6 +203,10 @@ const details = [
     font-size: 2.625em; /* 42px */
     line-height: 1.3;
     color: var(--color-text-primary);
+  }
+  /* Line break after "Направи" — mobile only. */
+  .final-cta__title-break {
+    display: none;
   }
   .final-cta__accent {
     margin: 0;
@@ -501,6 +505,9 @@ const details = [
     }
     .final-cta__title {
       font-size: 1.75em; /* 28px */
+    }
+    .final-cta__title-break {
+      display: inline;
     }
     /* rows sit flush inside the card on mobile (no inset box) */
     .final-cta__details {
