@@ -62,17 +62,14 @@
         <span class="pricing__badge">Пакет за двама</span>
 
         <!-- Early-bird tag -->
-        <div class="pricing__tag" aria-hidden="true">
-          <img
-            src="/assets/images/pricing-arrow-curve.svg"
-            alt=""
-            width="68"
-            height="234"
-            loading="lazy"
-            class="pricing__tag-shape"
-          />
-          <span class="pricing__tag-text">Ранно записване</span>
-        </div>
+        <img
+          class="pricing__tag"
+          src="/assets/images/pricing-early-bird-tag.webp"
+          alt="Ранно записване"
+          width="303"
+          height="174"
+          loading="lazy"
+        />
 
         <div class="pricing__card-body">
           <p class="pricing__price pricing__price--package">
@@ -361,36 +358,16 @@
     width: 100%;
   }
 
-  /* Early-bird tag (decorative) on the package card */
+  /* Early-bird tag — overhangs the top-right corner of the package card.
+     Single pre-composed image at the Figma size (~302×173). */
   .pricing__tag {
     position: absolute;
-    top: -0.5em;
-    right: -5.5em;
-    z-index: 2;
-    width: 12.5em; /* ~200px tag width */
-    height: 5.5em;
-    pointer-events: none;
-  }
-  .pricing__tag-shape {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 14.6em; /* 234px (rotated tag long edge) */
+    top: -1.75em;
+    right: -6.5em;
+    width: 18.9em; /* ~302px */
     height: auto;
-    transform: translateY(-50%) rotate(-66.35deg);
-    transform-origin: center;
-  }
-  .pricing__tag-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(23.14deg);
-    font-family: var(--font-heading);
-    font-weight: 500;
-    font-size: 1.1em; /* ~17.6px */
-    line-height: 1.5;
-    color: var(--color-text-primary);
-    white-space: nowrap;
+    z-index: 3;
+    pointer-events: none;
   }
 
   /* Tablet */
@@ -417,7 +394,9 @@
       max-width: 26.5em;
     }
     .pricing__tag {
-      right: -3.5em;
+      width: 14em;
+      top: -1.25em;
+      right: -1em;
     }
   }
 
@@ -435,9 +414,8 @@
       gap: 0.5em;
     }
     .pricing__tag {
-      right: -2em;
-      transform: scale(0.85);
-      transform-origin: top right;
+      width: 12em;
+      right: -0.5em;
     }
   }
 </style>
