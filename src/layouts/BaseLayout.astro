@@ -43,13 +43,20 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : As
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- Fonts — Manrope (Cyrillic) as substitute for brand "Sharp Grotesk Cyr".
-         Swap to self-hosted brand font via @font-face when licensed files are added. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fonts — self-hosted brand font (Sharp Grotesk Cyr); @font-face in global.css. -->
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap&subset=cyrillic,cyrillic-ext,latin"
+      rel="preload"
+      href="/assets/fonts/sharp-grotesk-cyr-medium.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/sharp-grotesk-cyr-book.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
     <slot name="head" />
 

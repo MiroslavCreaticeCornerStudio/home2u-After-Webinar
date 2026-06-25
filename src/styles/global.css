@@ -1,4 +1,25 @@
 /* ==========================================================================
+   Fonts — Sharp Grotesk Cyr (self-hosted WOFF2, brand font from the Home2U
+   casting project). Book = 400, Medium = 500.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Sharp Grotesk Cyr";
+  src: url("/assets/fonts/sharp-grotesk-cyr-book.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sharp Grotesk Cyr";
+  src: url("/assets/fonts/sharp-grotesk-cyr-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
    Fluid Scaling System
    Viewport-based scaling — all em values scale automatically.
    ========================================================================== */
@@ -67,11 +88,9 @@
   --gradient-cta: linear-gradient(270deg, #a90931 0%, #880425 100%);
   --shadow-cta: 0px 15px 15px rgba(169, 8, 49, 0.19);
 
-  /* Typography — "Sharp Grotesk Cyr" is the brand font (commercial).
-     Drop licensed woff2 into /assets/fonts + add @font-face to activate;
-     until then Manrope (Cyrillic grotesque) is the substitute. */
-  --font-heading: "Sharp Grotesk Cyr", "Manrope", system-ui, -apple-system, sans-serif;
-  --font-body: "Sharp Grotesk Cyr", "Manrope", system-ui, -apple-system, sans-serif;
+  /* Typography — brand font "Sharp Grotesk Cyr" (self-hosted, see @font-face above). */
+  --font-heading: "Sharp Grotesk Cyr", system-ui, -apple-system, sans-serif;
+  --font-body: "Sharp Grotesk Cyr", system-ui, -apple-system, sans-serif;
 
   /* Spacing scale */
   --spacing-xs: 0.25em;   /* 4px */
