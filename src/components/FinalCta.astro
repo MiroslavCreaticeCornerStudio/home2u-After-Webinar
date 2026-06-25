@@ -56,7 +56,7 @@ const details = [
 
       <div class="final-cta__tickets">
         <span class="final-cta__tickets-tag">Оставащи места</span>
-        <span class="final-cta__tickets-number">10</span>
+        <span class="final-cta__tickets-number"><span class="final-cta__tickets-digit">10</span></span>
       </div>
     </div>
 
@@ -261,12 +261,8 @@ const details = [
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 1.5em 2.311em; /* 24px 36.975px */
-    font-family: var(--font-body);
-    font-weight: 400;
-    font-size: 4.625em; /* 74px */
+    padding: 1.5em 2.311em; /* 24px 36.975px (relative to base, not the digit) */
     line-height: 1;
-    color: var(--color-text-primary);
     white-space: nowrap;
     border: 1px solid var(--color-primary);
     border-radius: 1.733em; /* 27.731px */
@@ -276,6 +272,13 @@ const details = [
       rgb(252, 235, 236) 40.81%
     );
     box-shadow: 0px 0px 9.244px 3.697px rgba(169, 8, 49, 0.2);
+  }
+  .final-cta__tickets-digit {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 4.625em; /* 74px */
+    line-height: 1;
+    color: var(--color-text-primary);
   }
   .final-cta__tickets-tag {
     position: absolute;
@@ -513,8 +516,10 @@ const details = [
       height: 6.5em;
     }
     .final-cta__tickets-number {
-      font-size: 3.5em;
       padding: 1em 1.25em;
+    }
+    .final-cta__tickets-digit {
+      font-size: 3.5em;
     }
     .final-cta__submit {
       min-height: 2.75em;
