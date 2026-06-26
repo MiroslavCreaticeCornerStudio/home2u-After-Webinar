@@ -1,9 +1,10 @@
 // On-demand endpoint (runs as a Vercel serverless function) — NOT prerendered.
-// Sends the registration lead to the Skyguru CRM. (Brevo removed.)
+// Sends the registration lead to BOTH the Skyguru CRM and a Brevo email list.
 export const prerender = false;
 
 import type { APIRoute } from "astro";
 import { sendSkyguruLead } from "../../lib/skyguru";
+import { sendBrevoContact } from "../../lib/brevo";
 
 function json(data: unknown, status = 200): Response {
   return new Response(JSON.stringify(data), {
@@ -44,18 +45,28 @@ export const POST: APIRoute = async ({ request }) => {
   const attribution = (body.attribution ?? {}) as Record<string, unknown>;
   const nameParts = name.split(/\s+/).filter(Boolean);
 
-  // Forward the full lead to the Skyguru CRM (the only destination now).
-  const ok = await sendSkyguruLead({
-    name,
-    firstName: nameParts[0] ?? name,
-    lastName: nameParts.slice(1).join(" ") || undefined,
-    email,
-    phone,
-    consent,
-    attribution,
-  });
+  // Forward the lead to both destinations concurrently. Neither lib throws.
+  const [crmOk, brevoOk] = await Promise.all([
+    // Skyguru CRM — the source of truth.
+    sendSkyguruLead({
+      name,
+      firstName: nameParts[0] ?? name,
+      lastName: nameParts.slice(1).join(" ") || undefined,
+      email,
+      phone,
+      consent,
+      attribution,
+    }),
+    // Brevo email list (#10) — for marketing follow-up.
+    sendBrevoContact({ name, phone, email, attribution }),
+  ]);
 
-  if (ok) return json({ ok: true });
+  // Succeed if the lead landed in at least one destination; log partial failures.
+  if (crmOk || brevoOk) {
+    if (!crmOk) console.error("Lead saved to Brevo but Skyguru CRM failed", email);
+    if (!brevoOk) console.error("Lead saved to Skyguru CRM but Brevo failed", email);
+    return json({ ok: true });
+  }
 
   return json(
     { ok: false, error: "Възникна грешка при изпращането. Моля, опитай отново." },
