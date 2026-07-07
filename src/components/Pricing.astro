@@ -43,30 +43,18 @@ const SHOW_PROMO = false;
         <div class="pricing__card-body">
           <p class="pricing__price">€500</p>
 
-          <form class="pricing__promo">
-            <!-- TODO: wire up submission -->
-            {
-              SHOW_PROMO && (
-                <div class="pricing__field">
-                  <label class="pricing__label" for="pricing-promo">Промокод</label>
-                  <input
-                    type="text"
-                    id="pricing-promo"
-                    name="promo"
-                    class="pricing__input"
-                    placeholder="Въведи промокод"
-                  />
-                </div>
-              )
-            }
-            <button type="submit" class="btn btn--primary pricing__cta">Купи</button>
-          </form>
+          <a
+            href="https://buy.stripe.com/28E00j4Ix5kRcj38VRcjS00"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn--primary pricing__cta"
+          >Купи</a>
         </div>
       </article>
 
-      <!-- Card 2 — Package -->
+      <!-- Card 2 — Package (early-bird) -->
       <article class="pricing__card pricing__card--package">
-        <span class="pricing__badge">Пакет за двама</span>
+        <span class="pricing__badge">Early bird пакет за двама</span>
 
         <!-- Early-bird tag -->
         <img
@@ -101,12 +89,26 @@ const SHOW_PROMO = false;
                 </span>
                 <span class="pricing__tickets-count">Специална цена само за първите 20!</span>
               </div>
-              <p class="pricing__tickets-note">
+              <p class="pricing__tickets-note" style="display:none">
                 *след изтичане на срока цената ще се промени на стандартната цена
               </p>
             </div>
-            <a href="#register" class="btn btn--primary pricing__cta">Купи</a>
+            <a href="https://buy.stripe.com/dRm4gzcaZ9B7fvf7RNcjS01" target="_blank" rel="noopener noreferrer" class="btn btn--primary pricing__cta">Купи</a>
           </div>
+        </div>
+      </article>
+
+      <!-- Card 3 — Package (standard) -->
+      <article class="pricing__card">
+        <span class="pricing__badge">Пакет за двама</span>
+        <div class="pricing__card-body">
+          <p class="pricing__price">€800</p>
+          <a
+            href="https://buy.stripe.com/4gMcN50sheVrdn7fkfcjS02"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn--primary pricing__cta"
+          >Купи</a>
         </div>
       </article>
     </div>
@@ -276,6 +278,9 @@ const SHOW_PROMO = false;
     gap: 1.25em; /* 20px */
     height: 100%;
   }
+  .pricing__card--package {
+    z-index: 1;
+  }
   .pricing__card--package .pricing__card-body {
     justify-content: space-between;
   }
@@ -434,6 +439,13 @@ const SHOW_PROMO = false;
     .pricing__shape--right {
       left: auto;
       right: -22em;
+    }
+    .pricing__cards {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .pricing__card {
+      flex-shrink: 1;
     }
   }
 
