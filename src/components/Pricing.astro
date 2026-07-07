@@ -99,7 +99,7 @@ const SHOW_PROMO = false;
                   />
                   <span class="pricing__timer-count" data-countdown>23:14:02</span>
                 </span>
-                <span class="pricing__tickets-count">Остават 20 билета</span>
+                <span class="pricing__tickets-count">Специална цена само за първите 20!</span>
               </div>
               <p class="pricing__tickets-note">
                 *след изтичане на срока цената ще се промени на стандартната цена
@@ -369,7 +369,8 @@ const SHOW_PROMO = false;
     width: 100%;
   }
   .pricing__timer {
-    display: inline-flex;
+    display: none;
+    /* display: inline-flex; — restore to show countdown */
     align-items: center;
     gap: 0.45em; /* ~7.3px */
     flex-shrink: 0;

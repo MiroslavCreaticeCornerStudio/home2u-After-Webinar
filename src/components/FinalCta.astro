@@ -1,6 +1,6 @@
 ---
 // Final CTA Section — photo background + light pastel gradient overlay,
-// event details glass card (left) + two pricing cards stacked (right).
+// event details glass card.
 // Figma node 2856:555.
 const details = [
   { icon: "icon-finalcta-date.svg", label: "Дати:", value: "08-15 септември" },
@@ -54,111 +54,15 @@ const details = [
         }
       </div>
 
+      <a href="#pricing" class="btn btn--primary final-cta__cta">Запази своето място</a>
+
       <div class="final-cta__tickets">
         <span class="final-cta__tickets-tag">Оставащи места</span>
         <span class="final-cta__tickets-number"><span class="final-cta__tickets-digit">10</span></span>
       </div>
     </div>
-
-    <!-- Right: two pricing cards stacked -->
-    <div class="final-cta__pricing-stack">
-
-      <!-- Card 1 — Individual -->
-      <article class="final-cta__price-card">
-        <span class="final-cta__price-badge">Индивидуален</span>
-        <div class="final-cta__price-body">
-          <p class="final-cta__price-amount">€500</p>
-          <a href="#register" class="btn btn--primary final-cta__price-cta">Купи</a>
-        </div>
-      </article>
-
-      <!-- Card 2 — Package (early-bird) -->
-      <article class="final-cta__price-card final-cta__price-card--package">
-        <span class="final-cta__price-badge">Пакет за двама</span>
-
-        <img
-          class="final-cta__price-tag"
-          src="/course/assets/images/pricing-early-bird-tag.webp"
-          alt="Ранно записване"
-          width="303"
-          height="174"
-          loading="lazy"
-        />
-
-        <div class="final-cta__price-body final-cta__price-body--package">
-          <p class="final-cta__price-amount final-cta__price-amount--package">
-            <span class="final-cta__price-old">€800</span>
-            <span class="final-cta__price-new">€600</span>
-          </p>
-
-          <div class="final-cta__price-bottom">
-            <div class="final-cta__price-tickets">
-              <div class="final-cta__price-tickets-row">
-                <span class="final-cta__price-timer">
-                  <img
-                    src="/course/assets/images/icon-timer.svg"
-                    alt=""
-                    role="presentation"
-                    width="20"
-                    height="20"
-                    loading="lazy"
-                    class="final-cta__price-timer-icon"
-                  />
-                  <span class="final-cta__price-timer-count" data-countdown>23:14:02</span>
-                </span>
-                <span class="final-cta__price-tickets-count">Остават 20 билета</span>
-              </div>
-              <p class="final-cta__price-tickets-note">
-                *след изтичане на срока цената ще се промени на стандартната цена
-              </p>
-            </div>
-            <a href="#register" class="btn btn--primary final-cta__price-cta">Купи</a>
-          </div>
-        </div>
-      </article>
-
-    </div>
   </div>
 </section>
-
-<script>
-  // Evergreen countdown (HH:MM:SS) — same logic as the standalone Pricing section.
-  document.querySelectorAll<HTMLElement>("[data-countdown]").forEach((el) => {
-    const KEY = "h2u_offer_deadline";
-    const DURATION = 24 * 60 * 60 * 1000; // 24h
-    const FIXED_DEADLINE: number | null = null;
-
-    const pad = (n: number) => String(n).padStart(2, "0");
-
-    function nextDeadline(): number {
-      if (FIXED_DEADLINE) return FIXED_DEADLINE;
-      let d = parseInt(localStorage.getItem(KEY) || "0", 10);
-      if (!d || d <= Date.now()) {
-        d = Date.now() + DURATION;
-        try { localStorage.setItem(KEY, String(d)); } catch { /* ignore */ }
-      }
-      return d;
-    }
-
-    let deadline = nextDeadline();
-
-    function tick() {
-      let diff = deadline - Date.now();
-      if (diff <= 0) {
-        if (FIXED_DEADLINE) { el.textContent = "00:00:00"; return; }
-        deadline = nextDeadline();
-        diff = deadline - Date.now();
-      }
-      const h = Math.floor(diff / 3_600_000);
-      const m = Math.floor((diff % 3_600_000) / 60_000);
-      const s = Math.floor((diff % 60_000) / 1000);
-      el.textContent = `${pad(h)}:${pad(m)}:${pad(s)}`;
-    }
-
-    tick();
-    setInterval(tick, 1000);
-  });
-</script>
 
 <style>
   .final-cta {
@@ -274,6 +178,10 @@ const details = [
     white-space: nowrap;
   }
 
+  .final-cta__cta {
+    width: 100%;
+  }
+
   /* Remaining tickets badge — hidden, kept in HTML for easy re-enable */
   .final-cta__tickets {
     display: none;
@@ -334,179 +242,6 @@ const details = [
       0px 3.697px 7.58px 0px rgba(0, 0, 0, 0.15);
   }
 
-  /* ---- Right: two pricing cards stacked vertically, same card width as Pricing section ---- */
-  .final-cta__pricing-stack {
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1.7em;
-    width: 26.5em;
-  }
-
-  .final-cta__price-card {
-    position: relative;
-    width: 100%;
-    margin-top: 1.25em; /* room for badge overhang */
-    padding: 3.625em 2.25em 2.625em;
-    border-radius: 1.5em;
-    background-image:
-      linear-gradient(
-        -0.72deg,
-        rgba(196, 211, 223, 0.5) 0.76%,
-        rgba(241, 217, 222, 0.5) 99.22%
-      ),
-      linear-gradient(
-        90deg,
-        rgba(240, 249, 255, 0.7) 0%,
-        rgba(240, 249, 255, 0.7) 100%
-      );
-  }
-
-  /* Badge pill floating above the card top edge */
-  .final-cta__price-badge {
-    position: absolute;
-    top: -1.25em;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 13em;
-    padding: 0.75em 0.9em;
-    background-color: var(--color-bg-white);
-    border-radius: 1.34em;
-    box-shadow:
-      0px 0px 11.942px rgba(169, 8, 49, 0.2),
-      0px 4.777px 9.793px rgba(0, 0, 0, 0.15);
-    font-family: var(--font-heading);
-    font-weight: 500;
-    font-size: 1em;
-    line-height: 1;
-    color: var(--color-primary);
-    text-align: center;
-    white-space: nowrap;
-  }
-
-  .final-cta__price-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.25em;
-    height: 100%;
-  }
-  .final-cta__price-body--package {
-    justify-content: space-between;
-    align-items: stretch;
-  }
-
-  /* Price amounts */
-  .final-cta__price-amount {
-    font-family: var(--font-heading);
-    font-weight: 500;
-    font-size: 4.75em;
-    line-height: 1;
-    color: var(--color-text-primary);
-    text-align: center;
-    text-transform: uppercase;
-  }
-  .final-cta__price-amount--package {
-    display: flex;
-    align-items: flex-end;
-    gap: 0.126em;
-  }
-  .final-cta__price-old {
-    font-size: 0.4em;
-    line-height: 1.4;
-    color: var(--color-text-secondary);
-    text-decoration: line-through;
-  }
-  .final-cta__price-new {
-    color: var(--color-primary);
-  }
-
-  .final-cta__price-cta {
-    width: 100%;
-  }
-
-  /* Package bottom block */
-  .final-cta__price-bottom {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5em;
-    width: 100%;
-  }
-  .final-cta__price-tickets {
-    display: flex;
-    flex-direction: column;
-    gap: 0.375em;
-    width: 100%;
-  }
-  .final-cta__price-tickets-row {
-    display: flex;
-    align-items: center;
-    gap: 0.75em;
-    width: 100%;
-  }
-  .final-cta__price-timer {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45em;
-    flex-shrink: 0;
-    padding: 0.5em 1.25em 0.5em 1em;
-    border: 1px solid var(--color-bg-white);
-    border-radius: 2.5625em;
-    background-image: linear-gradient(
-      to left,
-      rgba(255, 255, 255, 0.42) 1.76%,
-      rgba(255, 255, 255, 0.7) 98.47%
-    );
-  }
-  .final-cta__price-timer-icon {
-    width: 1.25em;
-    height: 1.25em;
-    flex-shrink: 0;
-  }
-  .final-cta__price-timer-count {
-    font-family: var(--font-heading);
-    font-weight: 500;
-    font-size: 1em;
-    line-height: 1.5;
-    color: var(--color-primary);
-    white-space: nowrap;
-  }
-  .final-cta__price-tickets-count {
-    font-family: var(--font-heading);
-    font-weight: 500;
-    font-size: 1em;
-    line-height: 1.5;
-    color: var(--color-text-secondary);
-    white-space: nowrap;
-  }
-  .final-cta__price-tickets-note {
-    font-family: var(--font-body);
-    font-weight: 400;
-    font-size: 0.75em;
-    line-height: 1.4;
-    color: var(--color-text-secondary);
-    width: 100%;
-  }
-  .final-cta__price-bottom .final-cta__price-cta {
-    width: 100%;
-  }
-
-  /* Early-bird tag — top-right overhang on the package card */
-  .final-cta__price-tag {
-    z-index: 1;
-    pointer-events: none;
-    width: 18.9em;
-    height: auto;
-    position: absolute;
-    top: -1.75em;
-    right: -8.5em;
-  }
-
   /* ---- Tablet ---- */
   @media (max-width: 991px) {
     .final-cta {
@@ -519,21 +254,8 @@ const details = [
     .final-cta__details-card {
       width: 100%;
     }
-    .final-cta__pricing-stack {
-      flex-direction: row;
-      width: 100%;
-      justify-content: center;
-      gap: 2.25em;
-    }
-    .final-cta__price-card {
-      width: 26.5em;
-      flex-shrink: 1;
-    }
     .final-cta__tickets {
       right: 1.5em;
-    }
-    .final-cta__price-tag {
-      right: -2em;
     }
   }
 
@@ -546,6 +268,7 @@ const details = [
       gap: 1em;
     }
     .final-cta__details-card {
+      flex: none;
       gap: 1.5em;
       padding: 1.5em;
     }
@@ -600,61 +323,6 @@ const details = [
       padding: 0.25em 0.3125em;
       font-size: 0.75em;
       border-radius: 0.617em;
-    }
-    /* Pricing stack — single column on mobile */
-    .final-cta__pricing-stack {
-      flex-direction: column;
-      gap: 1.7em;
-      align-items: stretch;
-    }
-    .final-cta__price-card {
-      width: 100%;
-      flex-shrink: 1;
-      padding: 2.75em 1.625em 2em;
-      border-radius: 1.13em;
-    }
-    .final-cta__price-badge {
-      top: -0.95em;
-      min-width: 0;
-      padding: 0.57em 0.68em;
-      font-size: 0.75em;
-      border-radius: 1.01em;
-    }
-    .final-cta__price-amount {
-      font-size: 3.5em;
-    }
-    .final-cta__price-amount--package {
-      gap: 0.143em;
-    }
-    .final-cta__price-old {
-      font-size: 0.4286em;
-    }
-    .final-cta__price-tag {
-      width: 8.5em;
-      top: -0.65em;
-      right: 0.5em;
-    }
-    .final-cta__price-cta {
-      min-height: 2.75em;
-      width: auto;
-    }
-    .final-cta__price-tickets-row {
-      flex-wrap: wrap;
-      gap: 0.57em;
-    }
-    .final-cta__price-timer {
-      padding: 0.38em 0.94em 0.38em 0.75em;
-    }
-    .final-cta__price-timer-icon {
-      width: 0.94em;
-      height: 0.94em;
-    }
-    .final-cta__price-timer-count,
-    .final-cta__price-tickets-count {
-      font-size: 0.75em;
-    }
-    .final-cta__price-tickets-note {
-      font-size: 0.625em;
     }
   }
 
